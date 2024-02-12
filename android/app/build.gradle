@@ -1,6 +1,9 @@
 apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
+apply plugin: "android.tools.build:gradle"
+apply plugin: "com.facebook.react:react-native-gradle-plugin"
+apply plugin: "org.jetbrains.kotlin:kotlin-gradle-plugin"
 
 /**
  * This is the configuration block to customize your React Native Android app.
