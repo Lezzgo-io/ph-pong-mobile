@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-import {typography} from '../../styles/app';
+import {text} from '../../styles/app';
 
 import BeerpongPh from '../../assets/beerpong-ph.png';
 
@@ -30,7 +30,7 @@ function Home() {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
-        <Text style={typography.title}>Welcome back, Tony!</Text>
+        <Text style={[text.title, text.color.black]}>Welcome back, Tony!</Text>
         <Image style={styles.banner.logo} source={BeerpongPh} />
       </ScrollView>
     </SafeAreaView>
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     logo: {
       backgroundColor: 'black',
       width: '100%',
-      height: 256,
+      height: 128,
       resizeMode: 'contain',
       borderTopLeftRadius: 15,
       borderTopRightRadius: 15,

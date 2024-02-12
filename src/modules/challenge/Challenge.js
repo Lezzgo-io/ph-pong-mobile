@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-import {typography} from '../../styles/app';
+import {text} from '../../styles/app';
 
 import SmallCard from '../../components/widgets/SmallCard';
 
@@ -34,23 +34,19 @@ function Challenge({navigation}) {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
-        <Text style={typography.title}>Challenge</Text>
+        <Text style={[text.title, text.color.black]}>Challenge</Text>
         <TouchableOpacity onPress={() => navigation.navigate('Join Match')}>
           <View style={[styles.card.container, styles.card.bgColor.blue]}>
-            <Text style={[typography.h1, typography.color.white]}>
-              JOIN A MATCH
-            </Text>
+            <Text style={[text.h1, text.color.white]}>JOIN A MATCH</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => setOpenCreateMatchModal(true)}>
           <View style={[styles.card.container, styles.card.bgColor.red]}>
-            <Text style={[typography.h1, typography.color.white]}>
-              CREATE A MATCH
-            </Text>
+            <Text style={[text.h1, text.color.white]}>CREATE A MATCH</Text>
           </View>
         </TouchableOpacity>
-        <Text style={typography.h1}>Recent matches</Text>
-        {[...Array(20)].map((i, iKey) => (
+        <Text style={[text.h1, text.color.black]}>Recent matches</Text>
+        {[...Array(8)].map((i, iKey) => (
           <SmallCard key={iKey} />
         ))}
       </ScrollView>
@@ -62,7 +58,7 @@ function Challenge({navigation}) {
           onRequestClose={() => setOpenCreateMatchModal(false)}>
           <View style={styles.modal.display.center}>
             <View style={styles.modal.container}>
-              <Text style={typography.text}>Hello World!</Text>
+              <Text style={text.text}>Hello World!</Text>
               <Pressable
                 style={[styles.button, styles.buttonClose]}
                 onPress={() => setOpenCreateMatchModal(false)}>
@@ -94,10 +90,7 @@ const styles = StyleSheet.create({
       minHeight: 128,
       marginBottom: 24,
       padding: 16,
-      borderTopLeftRadius: 15,
-      borderTopRightRadius: 15,
-      borderBottomLeftRadius: 15,
-      borderBottomRightRadius: 15,
+      borderRadius: 15,
     },
     bgColor: {
       red: {backgroundColor: '#c10b22'},

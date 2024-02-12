@@ -1,12 +1,12 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
-import {typography} from '../../styles/app';
+import {text} from '../../styles/app';
 
 function MatchCard() {
   return (
     <View style={styles.card}>
-      <Text style={typography.text}>
+      <Text style={[text.text, text.color.black]}>
         Match #{Math.round(Math.random() * (99999 - 1000) + 1000)}
       </Text>
     </View>

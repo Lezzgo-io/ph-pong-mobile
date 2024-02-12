@@ -9,8 +9,13 @@ import Profile from '../../modules/profile/Profile';
 import UserIcon from '../../assets/user.png';
 import HomeIcon from '../../assets/home.png';
 import SwordsIcon from '../../assets/swords.png';
+import MenuIcon from '../../assets/menu.png';
+import NftIcon from '../../assets/nft.png';
+
 import Challenge from '../../modules/challenge/Challenge';
 import JoinMatch from '../../modules/challenge/JoinMatch';
+import Nfts from '../../modules/nfts/Nfts';
+import Menu from '../../modules/menu/Menu';
 
 const CustomTab = ({state, descriptors, navigation}) => {
   return (
@@ -41,6 +46,8 @@ const CustomTab = ({state, descriptors, navigation}) => {
           Home: HomeIcon,
           Challenge: SwordsIcon,
           Profile: UserIcon,
+          Nfts: NftIcon,
+          Menu: MenuIcon,
         };
 
         if (route.name === 'Join Match') {
@@ -81,8 +88,12 @@ function BottomTabs() {
       swipeEnabled={true}
       screenOptions={options.navigator}>
       <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Nfts" component={Nfts} />
       <Tab.Screen name="Challenge" component={Challenge} />
       <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen name="Menu" component={Menu} />
+
+      {/* Hidden tabs */}
       <Tab.Screen name="Join Match" component={JoinMatch} />
     </Tab.Navigator>
   );

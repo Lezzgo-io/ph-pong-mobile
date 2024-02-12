@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-import {typography} from '../../styles/app';
+import {text} from '../../styles/app';
 import MatchCard from '../../components/widgets/MatchCard';
 
 function JoinMatch({navigation}) {
@@ -28,8 +28,8 @@ function JoinMatch({navigation}) {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
-        <Text style={typography.title}>Match List</Text>
-        {[...Array(20)].map((i, iKey) => (
+        <Text style={[text.title, text.color.black]}>Match List</Text>
+        {[...Array(3)].map((i, iKey) => (
           <MatchCard key={iKey} />
         ))}
       </ScrollView>
