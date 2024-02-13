@@ -3,22 +3,17 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 
 import {text} from '../../styles/app';
 
-import Nfts from '../../assets/my-nfts.png';
-
-function NftCard() {
+function NftCard(props) {
+  console.log(props);
   return (
     <View style={styles.card.container}>
-      <Image style={styles.card.image} source={Nfts} />
+      <Image style={styles.card.image} source={{uri: props.image}} />
       <View>
-        <Text style={[text.normal, text.color.black]}>
-          PHPONG PASS #{Math.round(Math.random() * (99999 - 1000) + 1000)}
-        </Text>
+        <Text style={[text.normal, text.color.black]}>{props.name}</Text>
         <Text style={[text.label, text.color.black]}>
-          _0x{Math.round(Math.random() * (99999999 - 1000) + 1000)}
+          {props.collection}-{props.block}
         </Text>
-        <Text style={[text.label, text.color.black]}>
-          Own: {Math.round(Math.random() * (100 - 10) + 10)}x
-        </Text>
+        <Text style={[text.label, text.color.black]}>Own: {props.amount}x</Text>
       </View>
     </View>
   );
@@ -37,6 +32,7 @@ const styles = StyleSheet.create({
     },
     image: {
       width: 64,
+      height: 128,
       marginRight: 8,
     },
   },
