@@ -23,9 +23,11 @@ const text = StyleSheet.create({
   },
   input: {
     marginBottom: 8,
-    height: 40,
     borderWidth: 1,
+    borderRadius: 8,
     padding: 10,
+    color: 'black',
+    fontSize: 18,
   },
   align: {
     left: {textAlign: 'left'},
@@ -42,8 +44,19 @@ const text = StyleSheet.create({
 const button = StyleSheet.create({
   contained: {
     borderRadius: 8,
-    borderWidth: 2,
+    paddingTop: 12,
+    paddingBottom: 8,
   },
 });
 
-export {text, button};
+const fontColor = StyleSheet.create({
+  red: {backgroundColor: '#c10b22'},
+  blue: {backgroundColor: '#1a439f'},
+});
+
+const bgColor = StyleSheet.create({
+  red: {backgroundColor: '#c10b22'},
+  blue: {backgroundColor: '#1a439f'},
+});
+
+export {text, button, fontColor, bgColor};
