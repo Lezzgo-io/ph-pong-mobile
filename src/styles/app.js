@@ -43,6 +43,8 @@ const text = StyleSheet.create({
 
 const button = StyleSheet.create({
   contained: {
+    paddingLeft: 16,
+    paddingRight: 16,
     borderRadius: 8,
     paddingTop: 12,
     paddingBottom: 8,
@@ -57,6 +59,8 @@ const fontColor = StyleSheet.create({
 const bgColor = StyleSheet.create({
   red: {backgroundColor: '#c10b22'},
   blue: {backgroundColor: '#1a439f'},
+  green: {backgroundColor: 'green'},
+  grey: {backgroundColor: 'grey'},
 });
 
 export {text, button, fontColor, bgColor};

@@ -9,7 +9,7 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {text} from '../../styles/app';
-import MatchCard from '../../components/widgets/MatchCard';
+import JoinMatchCard from '../../components/widgets/JoinMatchCard';
 
 function JoinMatch({navigation}) {
   const [refreshing, setRefreshing] = useState(false);
@@ -29,8 +29,8 @@ function JoinMatch({navigation}) {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
         <Text style={[text.title, text.color.black]}>Match List</Text>
-        {[...Array(3)].map((i, iKey) => (
-          <MatchCard key={iKey} />
+        {[...Array(Math.round(Math.random() * (10 - 5) + 5))].map((i, iKey) => (
+          <JoinMatchCard key={iKey} />
         ))}
       </ScrollView>
     </SafeAreaView>

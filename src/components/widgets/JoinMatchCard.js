@@ -3,22 +3,25 @@ import {StyleSheet, Text, View} from 'react-native';
 
 import {text} from '../../styles/app';
 
-function MatchCard() {
-  let win = Math.random() > 0.5 ? 1 : 0;
+function JoinMatchCard() {
+  let open = Math.random() > 0.5 ? 1 : 0;
+  let vs = Math.round(Math.random() * (5 - 1) + 1);
 
   return (
-    <View style={win ? styles.card.win : styles.card.lose}>
+    <View style={open ? styles.card.open : styles.card.close}>
       <Text style={[text.normal, text.color.white]}>
-        Match #{Math.round(Math.random() * (99999 - 1000) + 1000)}
+        {vs} vs {vs}
       </Text>
-      <Text style={[text.title, text.color.white]}>{win ? 'WIN' : 'LOSE'}</Text>
+      <Text style={[text.title, text.color.white]}>
+        {open ? 'JOIN' : 'FULL'}
+      </Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
-    win: {
+    open: {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
@@ -27,16 +30,16 @@ const styles = StyleSheet.create({
       borderRadius: 15,
       backgroundColor: 'green',
     },
-    lose: {
+    close: {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
       marginBottom: 8,
       padding: 16,
       borderRadius: 15,
-      backgroundColor: 'red',
+      backgroundColor: 'grey',
     },
   },
 });
 
-export default MatchCard;
+export default JoinMatchCard;

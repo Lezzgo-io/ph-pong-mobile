@@ -12,9 +12,9 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-import {text} from '../../styles/app';
+import {bgColor, button, text} from '../../styles/app';
 
-import SmallCard from '../../components/widgets/SmallCard';
+import MatchCard from '../../components/widgets/MatchCard';
 
 function Challenge({navigation}) {
   const [openCreateMatchModal, setOpenCreateMatchModal] = useState(false);
@@ -47,22 +47,22 @@ function Challenge({navigation}) {
         </TouchableOpacity>
         <Text style={[text.h1, text.color.black]}>Recent matches</Text>
         {[...Array(8)].map((i, iKey) => (
-          <SmallCard key={iKey} />
+          <MatchCard key={iKey} />
         ))}
       </ScrollView>
       <View style={styles.modal.display.center}>
         <Modal
-          animationType="fade"
+          animationType="slide"
           transparent={true}
           visible={openCreateMatchModal}
           onRequestClose={() => setOpenCreateMatchModal(false)}>
           <View style={styles.modal.display.center}>
             <View style={styles.modal.container}>
-              <Text style={text.text}>Hello World!</Text>
+              <Text style={[text.h1, text.color.black]}>Coming soon...</Text>
               <Pressable
-                style={[styles.button, styles.buttonClose]}
+                style={[button.contained, bgColor.grey]}
                 onPress={() => setOpenCreateMatchModal(false)}>
-                <Text style={styles.textStyle}>Hide Modal</Text>
+                <Text style={[text.h1, text.color.black]}>Close</Text>
               </Pressable>
             </View>
           </View>
@@ -102,7 +102,9 @@ const styles = StyleSheet.create({
       margin: 20,
       backgroundColor: 'white',
       borderRadius: 20,
-      padding: 35,
+      padding: 16,
+      paddingLeft: 48,
+      paddingRight: 48,
       alignItems: 'center',
       shadowColor: '#000',
       shadowOffset: {
