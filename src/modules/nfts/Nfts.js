@@ -27,10 +27,11 @@ function Nfts({navigation}) {
       '0x91e0857884317E75eB4b76CE7d64872a8FaEc521',
     )
       .then(response => {
-        console.log(response.data[0].metadata.image);
         setNfts(response.data);
       })
-      .catch(error => {})
+      .catch(error => {
+        console.error(JSON.stringify(error));
+      })
       .finally(() => {
         setRefreshing(false);
       });

@@ -16,8 +16,26 @@ import Challenge from '../../modules/challenge/Challenge';
 import JoinMatch from '../../modules/challenge/JoinMatch';
 import Nfts from '../../modules/nfts/Nfts';
 import Menu from '../../modules/menu/Menu';
+import Validate from '../../modules/validate/Validate';
+import UserService from '../../services/UserService';
+import Register from '../../modules/auth/Register';
+import Login from '../../modules/auth/Login';
 
 const CustomTab = ({state, descriptors, navigation}) => {
+  const checkValidation = useCallback(() => {
+    UserService.getValidation({}, '')
+      .then(response => {
+        console.log(response.data);
+        if (!response.data.validated) {
+          navigation.navigate('Validate');
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      })
+      .finally(() => {});
+  }, [navigation]);
+
   return (
     <View style={styles.tabHolder}>
       {state.routes.map((route, index) => {
@@ -25,6 +43,10 @@ const CustomTab = ({state, descriptors, navigation}) => {
         const isFocused = state.index === index;
 
         const onPress = () => {
+          if (route.name === 'Challenge') {
+            checkValidation();
+          }
+
           const event = navigation.emit({
             type: 'tabPress',
             target: route.key,
@@ -50,7 +72,12 @@ const CustomTab = ({state, descriptors, navigation}) => {
           Menu: MenuIcon,
         };
 
-        if (route.name === 'Join Match') {
+        if (
+          route.name === 'Join Match' ||
+          route.name === 'Validate' ||
+          route.name === 'Register' ||
+          route.name === 'Login'
+        ) {
           return '';
         } else {
           return (
@@ -71,7 +98,6 @@ const CustomTab = ({state, descriptors, navigation}) => {
 
 function BottomTabs() {
   const Tab = createBottomTabNavigator();
-  const tabComponent = useCallback(props => <CustomTab {...props} />, []);
 
   const options = {
     navigator: {
@@ -79,8 +105,11 @@ function BottomTabs() {
       headerTitleStyle: styles.navigator.title,
       headerShadowVisible: false,
       headerShown: false,
+      tabBarHideOnKeyboard: true,
     },
   };
+
+  const tabComponent = useCallback(props => <CustomTab {...props} />, []);
 
   return (
     <Tab.Navigator
@@ -93,8 +122,11 @@ function BottomTabs() {
       <Tab.Screen name="Profile" component={Profile} />
       <Tab.Screen name="Menu" component={Menu} />
 
-      {/* Hidden tabs */}
+      {/* Hidden tab button */}
       <Tab.Screen name="Join Match" component={JoinMatch} />
+      <Tab.Screen name="Validate" component={Validate} />
+      <Tab.Screen name="Register" component={Register} />
+      <Tab.Screen name="Login" component={Login} />
     </Tab.Navigator>
   );
 }

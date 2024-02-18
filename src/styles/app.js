@@ -43,11 +43,11 @@ const text = StyleSheet.create({
 
 const button = StyleSheet.create({
   contained: {
-    paddingLeft: 16,
-    paddingRight: 16,
+    height: 48,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 6,
     borderRadius: 8,
-    paddingTop: 12,
-    paddingBottom: 8,
   },
 });
 

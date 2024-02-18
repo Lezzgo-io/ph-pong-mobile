@@ -11,7 +11,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {text} from '../../styles/app';
 
-function Menu() {
+function Menu({navigation}) {
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = useCallback(() => {
@@ -30,7 +30,16 @@ function Menu() {
         }>
         <Text style={[text.title, text.color.black]}>Menu</Text>
         <View style={styles.view.card.container}>
-          <Text style={[text.h1, text.color.black]}>Coming soon...</Text>
+          <Text
+            style={[text.h1, text.color.black]}
+            onPress={() => navigation.navigate('Login')}>
+            Login
+          </Text>
+          <Text
+            style={[text.h1, text.color.black]}
+            onPress={() => navigation.navigate('Register')}>
+            Register
+          </Text>
         </View>
       </ScrollView>
     </SafeAreaView>

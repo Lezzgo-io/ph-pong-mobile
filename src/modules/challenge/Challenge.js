@@ -15,6 +15,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {bgColor, button, text} from '../../styles/app';
 
 import MatchCard from '../../components/widgets/MatchCard';
+import UserService from '../../services/UserService';
 
 function Challenge({navigation}) {
   const [openCreateMatchModal, setOpenCreateMatchModal] = useState(false);
@@ -22,10 +23,25 @@ function Challenge({navigation}) {
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
+    checkValidation();
     setTimeout(() => {
       setRefreshing(false);
     }, 2000);
-  }, []);
+  }, [checkValidation]);
+
+  const checkValidation = useCallback(() => {
+    UserService.getValidation({}, '')
+      .then(response => {
+        console.log(response.data);
+        if (!response.data.validated) {
+          navigation.navigate('Validate');
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      })
+      .finally(() => {});
+  }, [navigation]);
 
   return (
     <SafeAreaView style={styles.view.safeArea}>

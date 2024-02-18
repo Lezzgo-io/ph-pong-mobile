@@ -4,7 +4,6 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 import {text} from '../../styles/app';
 
 function NftCard(props) {
-  console.log(props);
   return (
     <View style={styles.card.container}>
       <Image style={styles.card.image} source={{uri: props.image}} />

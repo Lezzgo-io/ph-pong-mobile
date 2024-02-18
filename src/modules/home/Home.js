@@ -13,7 +13,7 @@ import {text} from '../../styles/app';
 
 import BeerpongPh from '../../assets/beerpong-ph.png';
 
-function Home() {
+function Home({navigation}) {
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = useCallback(() => {
