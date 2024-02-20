@@ -20,7 +20,7 @@ function Register({navigation}) {
   const [userInfo, setUserInfo] = useState({
     firstName: '',
     lastName: '',
-    username: '',
+    mobile: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -38,7 +38,7 @@ function Register({navigation}) {
     AuthService.register({
       first_name: userInfo.firstName,
       last_name: userInfo.lastName,
-      username: userInfo.username,
+      mobile: userInfo.mobile,
       email: userInfo.email,
       password: userInfo.password,
       type: userInfo.type,
@@ -93,11 +93,11 @@ function Register({navigation}) {
             autoCapitalize="none"
           />
           {/* Username */}
-          <Text style={[text.label, text.color.black]}>Username</Text>
+          <Text style={[text.label, text.color.black]}>Mobile</Text>
           <TextInput
             style={[text.input, text.color.black]}
-            value={userInfo.username}
-            onChangeText={value => setUserInfo({...userInfo, username: value})}
+            value={userInfo.mobile}
+            onChangeText={value => setUserInfo({...userInfo, mobile: value})}
             autoCapitalize="none"
           />
           {/* Password */}

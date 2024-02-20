@@ -6,7 +6,7 @@ class ReceptionService {
       method: 'POST',
       baseURL:
         'http://ec2-13-229-82-191.ap-southeast-1.compute.amazonaws.com:2430',
-      url: '/reception/accept',
+      url: '/reception/scan-accept',
       data: payload,
     });
   }

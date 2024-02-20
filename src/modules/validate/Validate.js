@@ -10,6 +10,7 @@ import {
   useCodeScanner,
 } from 'react-native-vision-camera';
 import UserService from '../../services/UserService';
+import ReceptionService from '../../services/ReceptionService';
 
 function Validate({navigation}) {
   const [refreshing, setRefreshing] = useState(false);
@@ -44,6 +45,15 @@ function Validate({navigation}) {
     UserService.validate({}, '')
       .then(response => {
         console.log(response.data);
+        setTimeout(() => {
+          ReceptionService.accept({}, {})
+            .then(re => {
+              console.log(re);
+            })
+            .catch(error => {
+              console.log(error.response);
+            });
+        }, 3000);
       })
       .catch(error => {
         console.error(JSON.stringify(error));
