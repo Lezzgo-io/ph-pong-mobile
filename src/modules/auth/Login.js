@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useContext, useState} from 'react';
 import {
   Alert,
   RefreshControl,
@@ -11,10 +11,15 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
+import Global from '../../util/Global';
+
 import {bgColor, button, text} from '../../styles/app';
+
 import AuthService from '../../services/AuthService';
 
 function Login({navigation}) {
+  // eslint-disable-next-line no-unused-vars
+  const {auth, setAuth} = useContext(Global);
   const [refreshing, setRefreshing] = useState(false);
 
   const [userInfo, setUserInfo] = useState({
@@ -26,19 +31,22 @@ function Login({navigation}) {
     setRefreshing(true);
     setTimeout(() => {
       setRefreshing(false);
-    }, 2000);
+    }, 1000);
   }, []);
 
-  const loginUser = useCallback(() => {
+  const handleLogin = useCallback(() => {
     AuthService.login({
       email: userInfo.email,
       password: userInfo.password,
     })
       .then(response => {
+        console.log(response.data);
+        setAuth(true);
         navigation.navigate('Home');
       })
       .catch(error => {
         console.error(JSON.stringify(error.response));
+        setAuth(false);
 
         if (error.response.status === 500) {
           Alert.alert('Error', 'Oops something went wrong!');
@@ -47,7 +55,7 @@ function Login({navigation}) {
         }
       })
       .finally(() => {});
-  }, [userInfo, navigation]);
+  }, [userInfo, setAuth, navigation]);
 
   return (
     <SafeAreaView style={view.safeArea}>
@@ -59,7 +67,7 @@ function Login({navigation}) {
         }>
         <Text style={[text.title, text.color.black]}>Login</Text>
         <View style={[card.container]}>
-          {/* First name */}
+          {/* Email name */}
           <Text style={[text.label, text.color.black]}>Email</Text>
           <TextInput
             style={[text.input, text.color.black]}
@@ -78,8 +86,13 @@ function Login({navigation}) {
           {/* Login button */}
           <TouchableOpacity
             style={[button.contained, bgColor.red]}
-            onPress={() => loginUser()}>
+            onPress={() => handleLogin()}>
             <Text style={[text.h1, text.color.white]}>Login</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[button.link, text.color.black]}
+            onPress={() => navigation.navigate('Register')}>
+            <Text style={[text.h1, text.color.black]}>Register instead</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

@@ -1,17 +1,23 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useContext, useState} from 'react';
 import {
   RefreshControl,
   ScrollView,
   StatusBar,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-import {text} from '../../styles/app';
+import Global from '../../util/Global';
 
-function Menu({navigation}) {
+import {button, text} from '../../styles/app';
+import AuthService from '../../services/AuthService';
+
+function Menu({navigation}, props) {
+  // eslint-disable-next-line no-unused-vars
+  const {auth, setAuth} = useContext(Global);
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = useCallback(() => {
@@ -20,6 +26,13 @@ function Menu({navigation}) {
       setRefreshing(false);
     }, 2000);
   }, []);
+
+  const handleLogout = useCallback(() => {
+    AuthService.logout().then(response => {
+      console.log(response.data);
+      setAuth(false);
+    });
+  }, [setAuth]);
 
   return (
     <SafeAreaView style={styles.view.safeArea}>
@@ -32,14 +45,14 @@ function Menu({navigation}) {
         <View style={styles.view.card.container}>
           <Text
             style={[text.h1, text.color.black]}
-            onPress={() => navigation.navigate('Login')}>
-            Login
+            onPress={() => navigation.navigate('Validate')}>
+            Validate
           </Text>
-          <Text
-            style={[text.h1, text.color.black]}
-            onPress={() => navigation.navigate('Register')}>
-            Register
-          </Text>
+          <TouchableOpacity
+            style={[button.link, text.color.black]}
+            onPress={() => handleLogout()}>
+            <Text style={[text.h1, text.color.black]}>Logout</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>

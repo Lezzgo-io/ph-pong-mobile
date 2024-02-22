@@ -49,6 +49,11 @@ const button = StyleSheet.create({
     paddingTop: 6,
     borderRadius: 8,
   },
+  link: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 48,
+  },
 });
 
 const fontColor = StyleSheet.create({

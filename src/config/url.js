@@ -1,9 +1,9 @@
 class URL {
-  static api() {
+  static phPongAdminService() {
     let env = process.env.REACT_APP_ENV;
 
     if (env === 'dev') {
-      return 'http://localhost:2430';
+      return 'http://ec2-13-229-82-191.ap-southeast-1.compute.amazonaws.com:2430';
     } else if (env === 'uat') {
       return 'http://ec2-13-229-82-191.ap-southeast-1.compute.amazonaws.com:2430';
     } else if (env === 'prod') {

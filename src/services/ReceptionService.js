@@ -1,13 +1,19 @@
 import axios from 'axios';
+import URL from '../config/url';
 
 class ReceptionService {
-  static accept(payload, address) {
+  static scanCreate() {
     return axios({
       method: 'POST',
-      baseURL:
-        'http://ec2-13-229-82-191.ap-southeast-1.compute.amazonaws.com:2430',
-      url: '/reception/scan-accept',
-      data: payload,
+      baseURL: URL.phPongAdminService(),
+      url: '/customer/reception/scan/create',
+    });
+  }
+  static scanAvailable() {
+    return axios({
+      method: 'GET',
+      baseURL: URL.phPongAdminService(),
+      url: '/customer/reception/scan/available',
     });
   }
 }

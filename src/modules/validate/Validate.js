@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {RefreshControl, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
@@ -11,10 +11,12 @@ import {
 } from 'react-native-vision-camera';
 import UserService from '../../services/UserService';
 import ReceptionService from '../../services/ReceptionService';
+import AuthService from '../../services/AuthService';
 
 function Validate({navigation}) {
   const [refreshing, setRefreshing] = useState(false);
-  const [analyzing, setAnalyzing] = useState(false);
+  const [scanning, setScanning] = useState(false);
+  const [scannerOn, setScannerOn] = useState(false);
 
   const {hasPermission, requestPermission} = useCameraPermission();
   const device = useCameraDevice('back');
@@ -22,65 +24,46 @@ function Validate({navigation}) {
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     setTimeout(() => {
-      checkValidation();
+      handleScanAvailable();
       setRefreshing(false);
     }, 2000);
-  }, [checkValidation]);
-
-  const checkValidation = useCallback(() => {
-    UserService.getValidation({}, '')
-      .then(response => {
-        console.log(response.data);
-        if (response.data.validated) {
-          navigation.navigate('Challenge');
-        }
-      })
-      .catch(error => {
-        console.error(JSON.stringify(error));
-      })
-      .finally(() => {});
-  }, [navigation]);
-
-  const validate = useCallback(() => {
-    UserService.validate({}, '')
-      .then(response => {
-        console.log(response.data);
-        setTimeout(() => {
-          ReceptionService.accept({}, {})
-            .then(re => {
-              console.log(re);
-            })
-            .catch(error => {
-              console.log(error.response);
-            });
-        }, 3000);
-      })
-      .catch(error => {
-        console.error(JSON.stringify(error));
-      })
-      .finally(() => {});
-  }, []);
+  }, [handleScanAvailable]);
 
   const codeScanner = useCodeScanner({
     codeTypes: ['qr', 'ean-13'],
 
     onCodeScanned: codes => {
-      if (!analyzing) {
-        setAnalyzing(true);
-        validate();
+      let message = codes.map((i, iKey) => i.value);
 
-        let message = codes.map((i, iKey) => i.value);
-        console.log(message);
-
-        setTimeout(() => {
-          setAnalyzing(false);
-        }, 5000);
+      if (
+        !scanning &&
+        message.includes('https://lezzgo.io/collection/philippine-pong')
+      ) {
+        setScanning(true);
       }
     },
   });
 
+  const handleScanAvailable = useCallback(() => {
+    ReceptionService.scanAvailable()
+      .then(response => {
+        setScannerOn(response.data.available);
+        console.log(response.data);
+      })
+      .catch(err => console.log(err.response));
+
+    AuthService.user().then(response => {
+      console.log(response.data);
+    });
+  }, []);
+
+  useEffect(() => {
+    handleScanAvailable();
+  }, [handleScanAvailable]);
+
   if (!hasPermission) {
     requestPermission();
+    return;
   }
 
   if (device == null) {
@@ -100,22 +83,26 @@ function Validate({navigation}) {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
-        <View style={camera.container}>
-          <Camera
-            style={camera.holder}
-            device={device}
-            isActive={true}
-            codeScanner={codeScanner}
-          />
-        </View>
-        <View>
-          <Text style={[text.h1, text.color.black, text.align.center]}>
-            {analyzing ? 'Scanning...' : 'Scan now'}
-          </Text>
-          <Text style={[text.title, text.color.black, text.align.center]}>
-            To start playing your matches scan the qr code in the reception
-          </Text>
-        </View>
+        {scannerOn && (
+          <React.Fragment>
+            <View style={camera.container}>
+              <Camera
+                style={camera.holder}
+                device={device}
+                isActive={true}
+                codeScanner={codeScanner}
+              />
+            </View>
+            <View>
+              <Text style={[text.h1, text.color.black, text.align.center]}>
+                {scanning ? 'Scanning...' : 'Scan now'}
+              </Text>
+              <Text style={[text.title, text.color.black, text.align.center]}>
+                To start playing your matches scan the qr code in the reception
+              </Text>
+            </View>
+          </React.Fragment>
+        )}
       </ScrollView>
     </SafeAreaView>
   );

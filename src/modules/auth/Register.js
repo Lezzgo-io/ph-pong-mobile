@@ -34,7 +34,7 @@ function Register({navigation}) {
     }, 2000);
   }, []);
 
-  const registerUser = useCallback(() => {
+  const handleRegister = useCallback(() => {
     AuthService.register({
       first_name: userInfo.firstName,
       last_name: userInfo.lastName,
@@ -43,8 +43,8 @@ function Register({navigation}) {
       password: userInfo.password,
       type: userInfo.type,
     })
-      .then(response => {
-        navigation.navigate('Home');
+      .then(() => {
+        navigation.navigate('Login');
       })
       .catch(error => {
         console.error(JSON.stringify(error.response));
@@ -121,8 +121,13 @@ function Register({navigation}) {
           {/* Register button */}
           <TouchableOpacity
             style={[button.contained, bgColor.red]}
-            onPress={() => registerUser()}>
+            onPress={() => handleRegister()}>
             <Text style={[text.h1, text.color.white]}>Register</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[button.link, text.color.black]}
+            onPress={() => navigation.navigate('Login')}>
+            <Text style={[text.h1, text.color.black]}>Login instead</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
