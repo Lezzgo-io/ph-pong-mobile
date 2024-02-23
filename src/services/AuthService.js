@@ -1,36 +1,25 @@
-import axios from 'axios';
-import URL from '../config/url';
+import {firebaseAuth} from '../config/firebase';
+import {createUserWithEmailAndPassword, signOut} from 'firebase/auth';
+
+import {signInWithEmailAndPassword} from 'firebase/auth/cordova';
 
 class AuthService {
-  static register(payload) {
-    return axios({
-      method: 'POST',
-      baseURL: URL.phPongAdminService(),
-      url: '/auth/register',
-      data: payload,
-    });
+  static async register(payload) {
+    return await createUserWithEmailAndPassword(
+      firebaseAuth,
+      payload.email,
+      payload.password,
+    );
   }
-  static login(payload) {
-    return axios({
-      method: 'POST',
-      baseURL: URL.phPongAdminService(),
-      url: '/auth/login',
-      data: payload,
-    });
+  static async login(payload) {
+    return await signInWithEmailAndPassword(
+      firebaseAuth,
+      payload.email,
+      payload.password,
+    );
   }
-  static logout() {
-    return axios({
-      method: 'POST',
-      baseURL: URL.phPongAdminService(),
-      url: '/auth/logout',
-    });
-  }
-  static user() {
-    return axios({
-      method: 'GET',
-      baseURL: URL.phPongAdminService(),
-      url: '/auth/user',
-    });
+  static async logout() {
+    return await signOut(firebaseAuth);
   }
 }
 

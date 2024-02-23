@@ -1,5 +1,6 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useContext, useState} from 'react';
 import {
+  ActivityIndicator,
   Alert,
   RefreshControl,
   ScrollView,
@@ -12,10 +13,18 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {bgColor, button, text} from '../../styles/app';
+
+import Global from '../../util/Global';
+import Validator from '../../util/Validator';
+
 import AuthService from '../../services/AuthService';
+import FirebaseService from '../../services/FirebaseService';
 
 function Register({navigation}) {
+  // eslint-disable-next-line no-unused-vars
+  const {auth, setAuth} = useContext(Global);
   const [refreshing, setRefreshing] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [userInfo, setUserInfo] = useState({
     firstName: '',
@@ -27,36 +36,79 @@ function Register({navigation}) {
     type: 'customer',
   });
 
+  const clearUserInfo = useCallback(() => {
+    setUserInfo(userInfo);
+  }, [userInfo]);
+
+  const onChange = (value, name) => {
+    setUserInfo({...userInfo, [name]: value});
+  };
+
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     setTimeout(() => {
+      clearUserInfo();
       setRefreshing(false);
     }, 2000);
-  }, []);
+  }, [clearUserInfo]);
 
-  const handleRegister = useCallback(() => {
-    AuthService.register({
-      first_name: userInfo.firstName,
-      last_name: userInfo.lastName,
-      mobile: userInfo.mobile,
-      email: userInfo.email,
-      password: userInfo.password,
-      type: userInfo.type,
-    })
-      .then(() => {
-        navigation.navigate('Login');
-      })
-      .catch(error => {
-        console.error(JSON.stringify(error.response));
+  const handleRegister = () => {
+    let validation = Validator.check([
+      Validator.required(userInfo, 'firstName'),
+      Validator.required(userInfo, 'lastName'),
+      Validator.required(userInfo, 'mobile'),
+      Validator.required(userInfo, 'email'),
+      Validator.required(userInfo, 'password'),
+      Validator.required(userInfo, 'type'),
+    ]);
 
-        if (error.response.status === 500) {
-          Alert.alert('Error', 'Oops something went wrong!');
-        } else if (error.response.status === 422) {
-          Alert.alert('Error', 'Incomplete details');
-        }
-      })
-      .finally(() => {});
-  }, [userInfo, navigation]);
+    if (!validation.pass) {
+      Alert.alert('Error', JSON.stringify(validation.result));
+      return;
+    }
+
+    setLoading(true);
+
+    setTimeout(() => {
+      AuthService.register({email: userInfo.email, password: userInfo.password})
+        .then(response => {
+          console.log(JSON.stringify(response));
+
+          FirebaseService.insert('users', {
+            auth_uid: response.user.uid,
+            first_name: userInfo.firstName,
+            last_name: userInfo.lastName,
+            email: userInfo.email,
+            mobile: userInfo.mobile,
+            type: userInfo.type,
+            access_token: response.user.stsTokenManager.accessToken,
+            access_expire: response.user.stsTokenManager.expirationTime,
+          })
+            .then(res => {
+              console.log(JSON.stringify(res));
+              setAuth(response.user);
+              navigation.navigate('Home');
+            })
+            .catch(err => {
+              console.log(JSON.stringify(err));
+            });
+        })
+        .catch(err => {
+          console.log(err.code);
+
+          if (err.code.includes('email')) {
+            Alert.alert('Error', err.code);
+          } else if (err.code.includes('password')) {
+            Alert.alert('Error', err.code);
+          } else {
+            Alert.alert('Error', 'Oops! Something went wrong');
+          }
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }, 2000);
+  };
 
   return (
     <SafeAreaView style={view.safeArea}>
@@ -73,7 +125,7 @@ function Register({navigation}) {
           <TextInput
             style={[text.input, text.color.black]}
             value={userInfo.firstName}
-            onChangeText={value => setUserInfo({...userInfo, firstName: value})}
+            onChangeText={value => onChange(value, 'firstName')}
             autoCapitalize="words"
           />
           {/* Last name */}
@@ -81,7 +133,7 @@ function Register({navigation}) {
           <TextInput
             style={[text.input, text.color.black]}
             value={userInfo.lastName}
-            onChangeText={value => setUserInfo({...userInfo, lastName: value})}
+            onChangeText={value => onChange(value, 'lastName')}
             autoCapitalize="words"
           />
           {/* Email address */}
@@ -89,7 +141,7 @@ function Register({navigation}) {
           <TextInput
             style={[text.input, text.color.black]}
             value={userInfo.email}
-            onChangeText={value => setUserInfo({...userInfo, email: value})}
+            onChangeText={value => onChange(value, 'email')}
             autoCapitalize="none"
           />
           {/* Username */}
@@ -97,7 +149,7 @@ function Register({navigation}) {
           <TextInput
             style={[text.input, text.color.black]}
             value={userInfo.mobile}
-            onChangeText={value => setUserInfo({...userInfo, mobile: value})}
+            onChangeText={value => onChange(value, 'mobile')}
             autoCapitalize="none"
           />
           {/* Password */}
@@ -105,7 +157,7 @@ function Register({navigation}) {
           <TextInput
             style={[text.input, text.color.black]}
             value={userInfo.password}
-            onChangeText={value => setUserInfo({...userInfo, password: value})}
+            onChangeText={value => onChange(value, 'password')}
             autoCapitalize="none"
           />
           {/* Confirm password */}
@@ -113,17 +165,24 @@ function Register({navigation}) {
           <TextInput
             style={[text.input, text.color.black]}
             value={userInfo.confirmPassword}
-            onChangeText={value =>
-              setUserInfo({...userInfo, confirmPassword: value})
-            }
+            onChangeText={value => onChange(value, 'confirmPassword')}
             autoCapitalize="none"
           />
           {/* Register button */}
           <TouchableOpacity
             style={[button.contained, bgColor.red]}
-            onPress={() => handleRegister()}>
+            onPress={() => handleRegister()}
+            disabled={loading}>
             <Text style={[text.h1, text.color.white]}>Register</Text>
+            {loading && (
+              <ActivityIndicator
+                style={[button.activity]}
+                size="large"
+                color="#0000ff"
+              />
+            )}
           </TouchableOpacity>
+          {/* Login button */}
           <TouchableOpacity
             style={[button.link, text.color.black]}
             onPress={() => navigation.navigate('Login')}>

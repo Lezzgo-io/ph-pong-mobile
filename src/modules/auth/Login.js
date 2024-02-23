@@ -1,5 +1,6 @@
 import React, {useCallback, useContext, useState} from 'react';
 import {
+  ActivityIndicator,
   Alert,
   RefreshControl,
   ScrollView,
@@ -11,6 +12,7 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
+import Validator from '../../util/Validator';
 import Global from '../../util/Global';
 
 import {bgColor, button, text} from '../../styles/app';
@@ -21,40 +23,67 @@ function Login({navigation}) {
   // eslint-disable-next-line no-unused-vars
   const {auth, setAuth} = useContext(Global);
   const [refreshing, setRefreshing] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const [userInfo, setUserInfo] = useState({
-    email: '',
-    password: '',
-  });
+  const [userInfo, setUserInfo] = useState({email: '', password: ''});
+
+  const clearUserInfo = useCallback(() => {
+    setUserInfo({email: '', password: ''});
+  }, []);
+
+  const onChange = (value, name) => {
+    setUserInfo({...userInfo, [name]: value});
+  };
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     setTimeout(() => {
+      clearUserInfo();
       setRefreshing(false);
     }, 1000);
-  }, []);
+  }, [clearUserInfo]);
 
   const handleLogin = useCallback(() => {
-    AuthService.login({
-      email: userInfo.email,
-      password: userInfo.password,
-    })
-      .then(response => {
-        console.log(response.data);
-        setAuth(true);
-        navigation.navigate('Home');
-      })
-      .catch(error => {
-        console.error(JSON.stringify(error.response));
-        setAuth(false);
+    let validation = Validator.check([
+      Validator.required(userInfo, 'email'),
+      Validator.required(userInfo, 'password'),
+    ]);
 
-        if (error.response.status === 500) {
-          Alert.alert('Error', 'Oops something went wrong!');
-        } else if (error.response.status === 422) {
-          Alert.alert('Error', 'Incomplete details');
-        }
+    if (!validation.pass) {
+      Alert.alert('Error', JSON.stringify(validation.result));
+      return;
+    }
+
+    setLoading(true);
+
+    setTimeout(() => {
+      AuthService.login({
+        email: userInfo.email,
+        password: userInfo.password,
       })
-      .finally(() => {});
+        .then(response => {
+          console.log(JSON.stringify(response));
+          setAuth(response.user);
+          navigation.navigate('Home');
+        })
+        .catch(err => {
+          console.error(err.code);
+          setAuth(null);
+
+          if (err.code.includes('email')) {
+            Alert.alert('Error', err.code);
+          } else if (err.code.includes('password')) {
+            Alert.alert('Error', err.code);
+          } else if (err.code.includes('credential')) {
+            Alert.alert('Error', err.code);
+          } else {
+            Alert.alert('Error', 'Oops! Something went wrong');
+          }
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }, 2000);
   }, [userInfo, setAuth, navigation]);
 
   return (
@@ -72,7 +101,7 @@ function Login({navigation}) {
           <TextInput
             style={[text.input, text.color.black]}
             value={userInfo.email}
-            onChangeText={value => setUserInfo({...userInfo, email: value})}
+            onChangeText={value => onChange(value, 'email')}
             autoCapitalize="none"
           />
           {/* Password */}
@@ -80,15 +109,24 @@ function Login({navigation}) {
           <TextInput
             style={[text.input, text.color.black]}
             value={userInfo.password}
-            onChangeText={value => setUserInfo({...userInfo, password: value})}
+            onChangeText={value => onChange(value, 'password')}
             autoCapitalize="none"
           />
           {/* Login button */}
           <TouchableOpacity
             style={[button.contained, bgColor.red]}
-            onPress={() => handleLogin()}>
+            onPress={() => handleLogin()}
+            disabled={loading}>
             <Text style={[text.h1, text.color.white]}>Login</Text>
+            {loading && (
+              <ActivityIndicator
+                style={[button.activity]}
+                size="large"
+                color="#0000ff"
+              />
+            )}
           </TouchableOpacity>
+          {/* Register button */}
           <TouchableOpacity
             style={[button.link, text.color.black]}
             onPress={() => navigation.navigate('Register')}>

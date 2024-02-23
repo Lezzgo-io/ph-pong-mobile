@@ -5,14 +5,14 @@ class ReceptionService {
   static scanCreate() {
     return axios({
       method: 'POST',
-      baseURL: URL.phPongAdminService(),
+      baseURL: URL.phPongReceptionService(),
       url: '/customer/reception/scan/create',
     });
   }
   static scanAvailable() {
     return axios({
       method: 'GET',
-      baseURL: URL.phPongAdminService(),
+      baseURL: URL.phPongReceptionService(),
       url: '/customer/reception/scan/available',
     });
   }

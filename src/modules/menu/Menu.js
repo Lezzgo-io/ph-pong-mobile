@@ -1,5 +1,6 @@
 import React, {useCallback, useContext, useState} from 'react';
 import {
+  Alert,
   RefreshControl,
   ScrollView,
   StatusBar,
@@ -28,10 +29,13 @@ function Menu({navigation}, props) {
   }, []);
 
   const handleLogout = useCallback(() => {
-    AuthService.logout().then(response => {
-      console.log(response.data);
-      setAuth(false);
-    });
+    AuthService.logout()
+      .then(() => {
+        setAuth(null);
+      })
+      .catch(() => {
+        Alert.alert('Error', 'Oops! Something went wrong');
+      });
   }, [setAuth]);
 
   return (

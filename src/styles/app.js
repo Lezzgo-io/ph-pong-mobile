@@ -54,6 +54,10 @@ const button = StyleSheet.create({
     alignItems: 'center',
     height: 48,
   },
+  activity: {
+    position: 'absolute',
+    margin: 'auto',
+  },
 });
 
 const fontColor = StyleSheet.create({

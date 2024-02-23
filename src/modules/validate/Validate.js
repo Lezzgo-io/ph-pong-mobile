@@ -9,7 +9,6 @@ import {
   useCameraPermission,
   useCodeScanner,
 } from 'react-native-vision-camera';
-import UserService from '../../services/UserService';
 import ReceptionService from '../../services/ReceptionService';
 import AuthService from '../../services/AuthService';
 
@@ -48,7 +47,6 @@ function Validate({navigation}) {
     ReceptionService.scanAvailable()
       .then(response => {
         setScannerOn(response.data.available);
-        console.log(response.data);
       })
       .catch(err => console.log(err.response));
 
