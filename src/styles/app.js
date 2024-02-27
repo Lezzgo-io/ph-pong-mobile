@@ -46,7 +46,9 @@ const button = StyleSheet.create({
     height: 48,
     justifyContent: 'center',
     alignItems: 'center',
+    margin: 8,
     paddingTop: 6,
+    paddingHorizontal: 16,
     borderRadius: 8,
   },
   link: {
