@@ -3,13 +3,14 @@ import {StyleSheet} from 'react-native';
 
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import CustomTab from './CustomTab';
+import moment from 'moment';
 
-import Global from '../../util/Global';
+import Global from '../../util/global';
+
+import CustomTab from './CustomTab';
 
 import Home from '../../modules/home/Home';
 import Profile from '../../modules/profile/Profile';
-
 import Challenge from '../../modules/challenge/Challenge';
 import JoinMatch from '../../modules/challenge/JoinMatch';
 import Nfts from '../../modules/nfts/Nfts';
@@ -18,12 +19,36 @@ import Validate from '../../modules/validate/Validate';
 import Register from '../../modules/auth/Register';
 import Login from '../../modules/auth/Login';
 
+import ReceptionService from '../../services/ReceptionService';
+
 function BottomTabs() {
-  // eslint-disable-next-line no-unused-vars
-  const {auth, setAuth} = useContext(Global);
+  const {user} = useContext(Global);
 
   const Tab = createBottomTabNavigator();
   const tabComponent = useCallback(props => <CustomTab {...props} />, []);
+
+  const handlePaidGameFee = useCallback(
+    navigation => {
+      let date = moment();
+
+      ReceptionService.paidGameFee(
+        {
+          user_auth_uid: user.auth_uid,
+          reception_date: date.format('YYYY-MM-DD'),
+        },
+        user.access_token,
+      )
+        .then(response => {
+          if (!response.data.msg) {
+            navigation.navigate('Validate');
+          }
+        })
+        .catch(error => {
+          console.error(JSON.stringify(error.response));
+        });
+    },
+    [user],
+  );
 
   return (
     <Tab.Navigator
@@ -35,8 +60,18 @@ function BottomTabs() {
         headerShadowVisible: false,
         headerShown: false,
         tabBarHideOnKeyboard: true,
-      }}>
-      {auth ? (
+      }}
+      screenListeners={({navigation}) => ({
+        state: e => {
+          let routeNames = e.data.state.routeNames;
+          let selectedRoute = routeNames[e.data.state.index];
+
+          if (selectedRoute === 'Challenge') {
+            handlePaidGameFee(navigation);
+          }
+        },
+      })}>
+      {user ? (
         <React.Fragment>
           <Tab.Screen name="Home" component={Home} />
           <Tab.Screen name="Nfts" component={Nfts} />

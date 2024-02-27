@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -14,31 +14,30 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {bgColor, button, text} from '../../styles/app';
 
-import Global from '../../util/Global';
-import Validator from '../../util/Validator';
+import Global from '../../util/global';
+import Validator from '../../util/validator';
 
 import AuthService from '../../services/AuthService';
 import FirebaseService from '../../services/FirebaseService';
 
 function Register({navigation}) {
-  // eslint-disable-next-line no-unused-vars
-  const {auth, setAuth} = useContext(Global);
+  const {setUser} = useContext(Global);
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const [userInfo, setUserInfo] = useState({
-    firstName: '',
-    lastName: '',
-    mobile: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    type: 'customer',
-  });
+  const [userInfo, setUserInfo] = useState({});
 
-  const clearUserInfo = useCallback(() => {
-    setUserInfo(userInfo);
-  }, [userInfo]);
+  const initUserInfo = useCallback(() => {
+    setUserInfo({
+      firstName: '',
+      lastName: '',
+      mobile: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      type: 'customer',
+    });
+  }, []);
 
   const onChange = (value, name) => {
     setUserInfo({...userInfo, [name]: value});
@@ -46,11 +45,12 @@ function Register({navigation}) {
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
+
     setTimeout(() => {
-      clearUserInfo();
+      initUserInfo();
       setRefreshing(false);
     }, 2000);
-  }, [clearUserInfo]);
+  }, [initUserInfo]);
 
   const handleRegister = () => {
     let validation = Validator.check([
@@ -71,10 +71,8 @@ function Register({navigation}) {
 
     setTimeout(() => {
       AuthService.register({email: userInfo.email, password: userInfo.password})
-        .then(response => {
-          console.log(JSON.stringify(response));
-
-          FirebaseService.insert('users', {
+        .then(async response => {
+          let user = {
             auth_uid: response.user.uid,
             first_name: userInfo.firstName,
             last_name: userInfo.lastName,
@@ -83,23 +81,20 @@ function Register({navigation}) {
             type: userInfo.type,
             access_token: response.user.stsTokenManager.accessToken,
             access_expire: response.user.stsTokenManager.expirationTime,
-          })
-            .then(res => {
-              console.log(JSON.stringify(res));
-              setAuth(response.user);
-              navigation.navigate('Home');
-            })
-            .catch(err => {
-              console.log(JSON.stringify(err));
-            });
-        })
-        .catch(err => {
-          console.log(err.code);
+          };
 
-          if (err.code.includes('email')) {
-            Alert.alert('Error', err.code);
-          } else if (err.code.includes('password')) {
-            Alert.alert('Error', err.code);
+          await FirebaseService.insert('users', user);
+
+          setUser(user);
+          navigation.navigate('Home');
+        })
+        .catch(error => {
+          console.error(error.code);
+
+          if (error.code.includes('email')) {
+            Alert.alert('Error', error.code);
+          } else if (error.code.includes('password')) {
+            Alert.alert('Error', error.code);
           } else {
             Alert.alert('Error', 'Oops! Something went wrong');
           }
@@ -109,6 +104,10 @@ function Register({navigation}) {
         });
     }, 2000);
   };
+
+  useEffect(() => {
+    initUserInfo();
+  }, [initUserInfo]);
 
   return (
     <SafeAreaView style={view.safeArea}>

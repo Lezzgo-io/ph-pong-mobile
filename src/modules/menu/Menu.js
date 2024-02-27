@@ -11,14 +11,13 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-import Global from '../../util/Global';
+import Global from '../../util/global';
 
 import {button, text} from '../../styles/app';
 import AuthService from '../../services/AuthService';
 
 function Menu({navigation}, props) {
-  // eslint-disable-next-line no-unused-vars
-  const {auth, setAuth} = useContext(Global);
+  const {setUser} = useContext(Global);
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = useCallback(() => {
@@ -31,12 +30,12 @@ function Menu({navigation}, props) {
   const handleLogout = useCallback(() => {
     AuthService.logout()
       .then(() => {
-        setAuth(null);
+        setUser(null);
       })
       .catch(() => {
         Alert.alert('Error', 'Oops! Something went wrong');
       });
-  }, [setAuth]);
+  }, [setUser]);
 
   return (
     <SafeAreaView style={styles.view.safeArea}>
@@ -47,11 +46,6 @@ function Menu({navigation}, props) {
         }>
         <Text style={[text.title, text.color.black]}>Menu</Text>
         <View style={styles.view.card.container}>
-          <Text
-            style={[text.h1, text.color.black]}
-            onPress={() => navigation.navigate('Validate')}>
-            Validate
-          </Text>
           <TouchableOpacity
             style={[button.link, text.color.black]}
             onPress={() => handleLogout()}>

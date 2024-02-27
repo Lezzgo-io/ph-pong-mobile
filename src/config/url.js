@@ -18,7 +18,7 @@ class URL {
     if (env === 'dev') {
       return '/';
     } else if (env === 'uat') {
-      return '/';
+      return 'http://ec2-54-169-100-103.ap-southeast-1.compute.amazonaws.com:2403';
     } else if (env === 'prod') {
       return '/';
     }

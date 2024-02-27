@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useContext, useState} from 'react';
 import {
   Alert,
   Image,
@@ -13,11 +13,14 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
+import Global from '../../util/global';
 import {bgColor, button, text} from '../../styles/app';
 
 import Placeholder from '../../assets/placeholder.jpeg';
 
 function Profile() {
+  const {user} = useContext(Global);
+
   const [refreshing, setRefreshing] = useState(false);
 
   const [walletAddress, setWalletAddress] = useState();
@@ -39,19 +42,23 @@ function Profile() {
         <Text style={[text.title, text.color.black]}>Profile</Text>
         <View style={styles.view.card.container}>
           <Image style={styles.profileImage} source={Placeholder} />
-          <Text style={[text.label]}>Name</Text>
+          <Text style={[text.label, text.color.grey]}>Name</Text>
           <Text style={[text.normal, text.color.black]}>
-            Fernand Anthony Tripulca
+            {user.first_name} {user.last_name}
           </Text>
-          <Text style={[text.label]}>Username</Text>
-          <Text style={[text.normal, text.color.black]}>@tony-tripulca</Text>
-          <Text style={[text.label]}>Email address</Text>
-          <Text style={[text.normal, text.color.black]}>tony@email.com</Text>
-          <Text style={[text.label]}>Mobile</Text>
-          <Text style={[text.normal, text.color.black]}>09171234567</Text>
+          <Text style={[text.label, text.color.grey]}>Username</Text>
+          <Text style={[text.normal, text.color.black]}>
+            @{user.first_name.toLowerCase()}-{user.last_name.toLowerCase()}
+          </Text>
+          <Text style={[text.label, text.color.grey]}>Email address</Text>
+          <Text style={[text.normal, text.color.black]}>{user.email}</Text>
+          <Text style={[text.label, text.color.grey]}>Mobile</Text>
+          <Text style={[text.normal, text.color.black]}>{user.mobile}</Text>
         </View>
         <View style={styles.view.card.container}>
-          <Text style={[text.label, text.color.black]}>Set your wallet</Text>
+          <Text style={[text.label, text.color.grey, text.color.black]}>
+            Set your wallet
+          </Text>
           <TextInput
             style={text.input}
             onChangeText={setWalletAddress}

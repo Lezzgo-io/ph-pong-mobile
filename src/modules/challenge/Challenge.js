@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {
   Modal,
   Pressable,
@@ -11,21 +11,52 @@ import {
   View,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import moment from 'moment';
 
+import Global from '../../util/global';
 import {bgColor, button, text} from '../../styles/app';
 
 import MatchCard from '../../components/widgets/MatchCard';
+import ReceptionService from '../../services/ReceptionService';
 
 function Challenge({navigation}) {
+  const {user} = useContext(Global);
+
   const [openCreateMatchModal, setOpenCreateMatchModal] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
+    handlePaidGameFee();
+
     setTimeout(() => {
       setRefreshing(false);
     }, 2000);
-  }, []);
+  }, [handlePaidGameFee]);
+
+  const handlePaidGameFee = useCallback(() => {
+    let date = moment();
+
+    ReceptionService.paidGameFee(
+      {
+        user_auth_uid: user.auth_uid,
+        reception_date: date.format('YYYY-MM-DD'),
+      },
+      user.access_token,
+    )
+      .then(response => {
+        if (!response.data.msg) {
+          navigation.navigate('Validate');
+        }
+      })
+      .catch(error => {
+        console.error(JSON.stringify(error.response));
+      });
+  }, [user, navigation]);
+
+  useEffect(() => {
+    handlePaidGameFee();
+  }, [handlePaidGameFee]);
 
   return (
     <SafeAreaView style={styles.view.safeArea}>
