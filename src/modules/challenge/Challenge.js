@@ -35,6 +35,7 @@ function Challenge({navigation}) {
 
   const [versus, setVersus] = useState('1v1');
   const [matches, setMatches] = useState([]);
+  const [match, setMatch] = useState({});
 
   const [camera, setCamera] = useState({
     scanning: false,
@@ -58,14 +59,17 @@ function Challenge({navigation}) {
     codeTypes: ['qr', 'ean-13'],
 
     onCodeScanned: codes => {
-      console.log(Date.now());
       let message = codes.map((i, iKey) => i.value);
       if (
         !camera.scanning &&
         message.includes('https://lezzgo.io/collection/philippine-pong')
       ) {
-        console.log(JSON.stringify(message));
-        // setCamera({...camera, scanning: true, active: false, hidden: true});
+        setCamera({...camera, scanning: true, active: false});
+        setModal({...modal, scannerOpen: false});
+
+        if (Object.keys(match).length) {
+          handlePayGameFee();
+        }
       }
     },
   });
@@ -105,6 +109,20 @@ function Challenge({navigation}) {
       });
   }, [modal, user, handleListMatches, versus]);
 
+  const handlePayGameFee = useCallback(() => {
+    MatchService.payGameFee({paid: true}, match.doc_uid, user.access_token)
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(JSON.stringify(error));
+      })
+      .finally(() => {
+        handleListMatches();
+        setMatch({});
+      });
+  }, [user, match, handleListMatches]);
+
   useEffect(() => {
     handleListMatches();
   }, [handleListMatches]);
@@ -133,7 +151,7 @@ function Challenge({navigation}) {
         }>
         <View>
           <Text style={[text.title, text.color.black]}>Challenge</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Join Match')}>
             <View style={[card.container, card.bgColor.blue]}>
               <Text style={[text.h1, text.color.white]}>JOIN A MATCH</Text>
             </View>
@@ -144,27 +162,30 @@ function Challenge({navigation}) {
               <Text style={[text.h1, text.color.white]}>CREATE A MATCH</Text>
             </View>
           </TouchableOpacity>
-          <Text style={[text.title, text.color.black]}>My Match</Text>
-          {matches?.map((i, iKey) => (
-            <View key={iKey}>
-              <Text style={[text.label, text.color.grey]}>
-                Match #{iKey + 1}: {i.doc_uid}
-              </Text>
-              {i.paid ? (
-                <TouchableOpacity>
-                  <MatchCard data={i} />
-                </TouchableOpacity>
-              ) : (
-                <TouchableOpacity
-                  onPress={() => {
-                    setModal({...modal, scannerOpen: true});
-                    setCamera({...camera, active: true});
-                  }}>
-                  <MatchCard data={i} />
-                </TouchableOpacity>
-              )}
-            </View>
-          ))}
+          <Text style={[text.title, text.color.black]}>My Created Match</Text>
+          {matches
+            ?.filter(i => i.host === user.auth_uid)
+            .map((i, iKey) => (
+              <View key={iKey}>
+                <Text style={[text.label, text.color.grey]}>
+                  Match #{iKey + 1}: {i.doc_uid}
+                </Text>
+                {i.paid ? (
+                  <TouchableOpacity>
+                    <MatchCard data={i} />
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity
+                    onPress={() => {
+                      setModal({...modal, scannerOpen: true});
+                      setCamera({...camera, scanning: false, active: true});
+                      setMatch(i);
+                    }}>
+                    <MatchCard data={i} />
+                  </TouchableOpacity>
+                )}
+              </View>
+            ))}
         </View>
       </ScrollView>
       <View style={modalStyle.display.center}>

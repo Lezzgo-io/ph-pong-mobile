@@ -1,5 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {
+  Alert,
   RefreshControl,
   ScrollView,
   StatusBar,
@@ -31,6 +32,7 @@ function Nfts({navigation}) {
       })
       .catch(error => {
         console.error(JSON.stringify(error));
+        Alert.alert('Maintenance', 'NFTs will be back soon');
       })
       .finally(() => {
         setRefreshing(false);

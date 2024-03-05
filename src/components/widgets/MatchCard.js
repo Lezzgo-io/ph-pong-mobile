@@ -16,10 +16,15 @@ function MatchCard({data}) {
         </Text>
       </View>
       <Text style={[text.title, text.color.black]}>{data.type}</Text>
-      <View style={[chip.contained, data.paid ? bgColor.green : bgColor.red]}>
-        <Text style={[text.title, text.color.white]}>
-          {data.paid ? 'PAID' : 'PAY NOW'}
+      <View>
+        <Text style={[text.jumbo, text.color.black, text.align.center]}>
+          P {parseFloat(data.fee).toFixed(2)}
         </Text>
+        <View style={[chip.contained, data.paid ? bgColor.green : bgColor.red]}>
+          <Text style={[text.title, text.color.white]}>
+            {data.paid ? 'PAID' : 'PAY NOW'}
+          </Text>
+        </View>
       </View>
     </View>
   );

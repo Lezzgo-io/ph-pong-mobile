@@ -1,6 +1,11 @@
 import {StyleSheet} from 'react-native';
 
 const text = StyleSheet.create({
+  jumbo: {
+    marginBottom: 8,
+    fontFamily: 'outfit-latin-700-normal',
+    fontSize: 26,
+  },
   title: {
     marginBottom: 8,
     fontFamily: 'outfit-latin-700-normal',
@@ -64,13 +69,12 @@ const button = StyleSheet.create({
 
 export const chip = StyleSheet.create({
   contained: {
-    height: 48,
+    height: 36,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 8,
     paddingTop: 6,
     paddingHorizontal: 16,
-    borderRadius: 8,
+    borderRadius: 16,
   },
 });
 

@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useContext, useState} from 'react';
 import {
   Image,
   RefreshControl,
@@ -9,11 +9,14 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
+import Global from '../../util/global';
 import {text} from '../../styles/app';
 
 import BeerpongPh from '../../assets/beerpong-ph.png';
 
 function Home({navigation}) {
+  const {user} = useContext(Global);
+
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = useCallback(() => {
@@ -30,7 +33,9 @@ function Home({navigation}) {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
-        <Text style={[text.title, text.color.black]}>Welcome back, Tony!</Text>
+        <Text style={[text.title, text.color.black]}>
+          Welcome back, {user.first_name}!
+        </Text>
         <Image style={styles.banner.logo} source={BeerpongPh} />
       </ScrollView>
     </SafeAreaView>
