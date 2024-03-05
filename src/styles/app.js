@@ -62,6 +62,18 @@ const button = StyleSheet.create({
   },
 });
 
+export const chip = StyleSheet.create({
+  contained: {
+    height: 48,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 8,
+    paddingTop: 6,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+  },
+});
+
 const fontColor = StyleSheet.create({
   red: {backgroundColor: '#c10b22'},
   blue: {backgroundColor: '#1a439f'},

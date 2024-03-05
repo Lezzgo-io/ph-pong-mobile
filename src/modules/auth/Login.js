@@ -11,6 +11,7 @@ import {
   View,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {where} from 'firebase/firestore';
 
 import Validator from '../../util/validator';
 import Global from '../../util/global';
@@ -19,7 +20,6 @@ import {bgColor, button, text} from '../../styles/app';
 
 import AuthService from '../../services/AuthService';
 import FirebaseService from '../../services/FirebaseService';
-import {where} from 'firebase/firestore';
 
 function Login({navigation}) {
   const {setUser} = useContext(Global);

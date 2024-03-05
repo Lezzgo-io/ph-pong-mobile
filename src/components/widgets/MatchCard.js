@@ -1,15 +1,26 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 
-import {bgColor, button, text} from '../../styles/app';
+import {bgColor, chip, text} from '../../styles/app';
 
 function MatchCard({data}) {
   return (
-    <View style={[bgColor.grey, card.container]}>
-      <Text style={[text.title, text.color.white]}>{data.type}</Text>
-      <TouchableOpacity style={[button.contained, bgColor.blue]}>
-        <Text style={[text.title, text.color.white]}>JOIN</Text>
-      </TouchableOpacity>
+    <View style={[bgColor.white, card.container]}>
+      <View>
+        <Text style={[text.title, text.color.black]}>
+          {data.creator_first_name} {data.creator_last_name}
+        </Text>
+        <Text style={[text.label, text.color.black]}>{data.creator_email}</Text>
+        <Text style={[text.label, text.color.black]}>
+          {data.creator_mobile}
+        </Text>
+      </View>
+      <Text style={[text.title, text.color.black]}>{data.type}</Text>
+      <View style={[chip.contained, data.paid ? bgColor.green : bgColor.red]}>
+        <Text style={[text.title, text.color.white]}>
+          {data.paid ? 'PAID' : 'PAY NOW'}
+        </Text>
+      </View>
     </View>
   );
 }
@@ -22,6 +33,7 @@ const card = StyleSheet.create({
     marginBottom: 8,
     padding: 16,
     borderRadius: 15,
+    borderWidth: 1,
   },
 });
 

@@ -3,8 +3,6 @@ import {StyleSheet} from 'react-native';
 
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import moment from 'moment';
-
 import Global from '../../util/global';
 
 import CustomTab from './CustomTab';
@@ -15,40 +13,14 @@ import Challenge from '../../modules/challenge/Challenge';
 import JoinMatch from '../../modules/challenge/JoinMatch';
 import Nfts from '../../modules/nfts/Nfts';
 import Menu from '../../modules/menu/Menu';
-import Validate from '../../modules/validate/Validate';
 import Register from '../../modules/auth/Register';
 import Login from '../../modules/auth/Login';
-
-import ReceptionService from '../../services/ReceptionService';
 
 function BottomTabs() {
   const {user} = useContext(Global);
 
   const Tab = createBottomTabNavigator();
   const tabComponent = useCallback(props => <CustomTab {...props} />, []);
-
-  const handlePaidGameFee = useCallback(
-    navigation => {
-      let date = moment();
-
-      ReceptionService.paidGameFee(
-        {
-          user_auth_uid: user.auth_uid,
-          reception_date: date.format('YYYY-MM-DD'),
-        },
-        user.access_token,
-      )
-        .then(response => {
-          if (!response.data.msg) {
-            navigation.navigate('Validate');
-          }
-        })
-        .catch(error => {
-          console.error(JSON.stringify(error.response));
-        });
-    },
-    [user],
-  );
 
   return (
     <Tab.Navigator
@@ -62,14 +34,7 @@ function BottomTabs() {
         tabBarHideOnKeyboard: true,
       }}
       screenListeners={({navigation}) => ({
-        state: e => {
-          let routeNames = e.data.state.routeNames;
-          let selectedRoute = routeNames[e.data.state.index];
-
-          if (selectedRoute === 'Challenge') {
-            handlePaidGameFee(navigation);
-          }
-        },
+        state: e => {},
       })}>
       {user ? (
         <React.Fragment>
@@ -81,7 +46,6 @@ function BottomTabs() {
 
           {/* Hidden tab button */}
           <Tab.Screen name="Join Match" component={JoinMatch} />
-          <Tab.Screen name="Validate" component={Validate} />
           <Tab.Screen name="Register" component={Register} />
           <Tab.Screen name="Login" component={Login} />
         </React.Fragment>

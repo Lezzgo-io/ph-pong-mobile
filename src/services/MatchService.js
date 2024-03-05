@@ -24,6 +24,16 @@ class MatchService {
       },
     });
   }
+  static getByUser(authId, access_token) {
+    return axios({
+      method: 'GET',
+      baseURL: URL.phPongMatchService(),
+      url: `/customer/matches/${authId}/by-user`,
+      headers: {
+        'access-token': access_token,
+      },
+    });
+  }
 }
 
 export default MatchService;

@@ -8,46 +8,40 @@ import MenuIcon from '../../assets/menu.png';
 import NftIcon from '../../assets/nft.png';
 
 const CustomTab = ({state, descriptors, navigation}) => {
+  const icon = {
+    Home: HomeIcon,
+    Challenge: SwordsIcon,
+    Profile: UserIcon,
+    Nfts: NftIcon,
+    Menu: MenuIcon,
+  };
+
   return (
     <View style={tab.container}>
-      {state.routes.map((route, index) => {
-        const {options} = descriptors[route.key];
-        const isFocused = state.index === index;
+      {state.routes
+        .filter(i => i.name in icon)
+        .map((route, index) => {
+          const {options} = descriptors[route.key];
+          const isFocused = state.index === index;
 
-        const onPress = () => {
-          const event = navigation.emit({
-            type: 'tabPress',
-            target: route.key,
-          });
+          const onPress = () => {
+            const event = navigation.emit({
+              type: 'tabPress',
+              target: route.key,
+            });
 
-          if (!isFocused && !event.defaultPrevented) {
-            navigation.navigate(route.name);
-          }
-        };
+            if (!isFocused && !event.defaultPrevented) {
+              navigation.navigate(route.name);
+            }
+          };
 
-        const onLongPress = () => {
-          navigation.emit({
-            type: 'tabLongPress',
-            target: route.key,
-          });
-        };
+          const onLongPress = () => {
+            navigation.emit({
+              type: 'tabLongPress',
+              target: route.key,
+            });
+          };
 
-        const icon = {
-          Home: HomeIcon,
-          Challenge: SwordsIcon,
-          Profile: UserIcon,
-          Nfts: NftIcon,
-          Menu: MenuIcon,
-        };
-
-        if (
-          route.name === 'Join Match' ||
-          route.name === 'Validate' ||
-          route.name === 'Register' ||
-          route.name === 'Login'
-        ) {
-          return '';
-        } else {
           return (
             <TouchableOpacity
               testID={options.tabBarTestID}
@@ -58,8 +52,7 @@ const CustomTab = ({state, descriptors, navigation}) => {
               <Image source={icon[route.name]} style={tab.icon} />
             </TouchableOpacity>
           );
-        }
-      })}
+        })}
     </View>
   );
 };
