@@ -1,36 +1,41 @@
 import {StyleSheet} from 'react-native';
 
-const text = StyleSheet.create({
+export const text = StyleSheet.create({
+  fullWidth: {
+    width: '100%',
+  },
   jumbo: {
     marginBottom: 8,
-    fontFamily: 'outfit-latin-700-normal',
-    fontSize: 26,
+    fontFamily: 'plus-jakarta-sans-latin-600-normal',
+    fontSize: 32,
   },
   title: {
     marginBottom: 8,
-    fontFamily: 'outfit-latin-700-normal',
+    fontFamily: 'plus-jakarta-sans-latin-800-normal',
     fontSize: 22,
   },
   h1: {
     marginBottom: 8,
-    fontFamily: 'outfit-latin-700-normal',
+    fontFamily: 'plus-jakarta-sans-latin-700-normal',
     fontSize: 18,
   },
   normal: {
     marginBottom: 8,
-    fontFamily: 'outfit-latin-400-normal',
+    fontFamily: 'plus-jakarta-sans-latin-400-normal',
     fontSize: 18,
   },
   label: {
     marginBottom: 4,
-    fontFamily: 'outfit-latin-400-normal',
+    fontFamily: 'plus-jakarta-sans-latin-400-normal',
     fontSize: 16,
   },
   input: {
     marginBottom: 8,
     borderWidth: 1,
     borderRadius: 8,
-    padding: 10,
+    borderColor: 'rgba(0,0,0,0.2)',
+    paddingHorizontal: 10,
+    paddingVertical: 8,
     color: 'black',
     fontSize: 18,
   },
@@ -46,14 +51,12 @@ const text = StyleSheet.create({
   },
 });
 
-const button = StyleSheet.create({
+export const button = StyleSheet.create({
   contained: {
     height: 48,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 8,
     paddingTop: 6,
-    paddingHorizontal: 16,
     borderRadius: 8,
   },
   link: {
@@ -78,16 +81,14 @@ export const chip = StyleSheet.create({
   },
 });
 
-const fontColor = StyleSheet.create({
+export const fontColor = StyleSheet.create({
   red: {backgroundColor: '#c10b22'},
-  blue: {backgroundColor: '#1a439f'},
+  blue: {backgroundColor: '#173992'},
 });
 
-const bgColor = StyleSheet.create({
+export const bgColor = StyleSheet.create({
   red: {backgroundColor: '#c10b22'},
-  blue: {backgroundColor: '#1a439f'},
+  blue: {backgroundColor: '#173992'},
   green: {backgroundColor: 'green'},
   grey: {backgroundColor: 'grey'},
 });
-
-export {text, button, fontColor, bgColor};

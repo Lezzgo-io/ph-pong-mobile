@@ -2,324 +2,116 @@
   "migIndex": 1,
   "data": [
     {
-      "path": "assets/fonts/LICENSE-Comfortaa",
-      "sha1": "58ac35bacca9ffe083492049f34ac6e9c097a8cd"
+      "path": "assets/fonts/plus-jakarta-sans-latin-200-italic.ttf",
+      "sha1": "081ef32f496e54ec0770dfe7cdcc88bc81872a56"
     },
     {
-      "path": "assets/fonts/LICENSE-Outfit",
-      "sha1": "c38295a58095893a1c098d34ae72117ac7c99983"
+      "path": "assets/fonts/plus-jakarta-sans-latin-200-normal.ttf",
+      "sha1": "d70d086eedf8a627de38091d35481e8638534053"
     },
     {
-      "path": "assets/fonts/comfortaa-latin-300-normal.ttf",
-      "sha1": "24f16aa559e1622ba54b480b814468b40321e1ec"
+      "path": "assets/fonts/plus-jakarta-sans-latin-300-italic.ttf",
+      "sha1": "76155678cd61f88099460224ad7a78672b65eadb"
     },
     {
-      "path": "assets/fonts/comfortaa-latin-300-normal.woff",
-      "sha1": "9fffc6e6fd96c4030cf96b144616f4eece5968a5"
+      "path": "assets/fonts/plus-jakarta-sans-latin-300-normal.ttf",
+      "sha1": "2c59d62c66d71d59a1fef007c1b095df4b29fd33"
     },
     {
-      "path": "assets/fonts/comfortaa-latin-300-normal.woff2",
-      "sha1": "98cc73c0a3f09ac3433dd1f7347abf492c888cdb"
+      "path": "assets/fonts/plus-jakarta-sans-latin-400-italic.ttf",
+      "sha1": "66d352e9123d2e28c957ae2d79f665ea71f40490"
     },
     {
-      "path": "assets/fonts/comfortaa-latin-400-normal.ttf",
-      "sha1": "3ee62f620e158dd3698665cbea849533bb28910e"
+      "path": "assets/fonts/plus-jakarta-sans-latin-400-normal.ttf",
+      "sha1": "bcc5d6a7e7bed3853d1032b47cca4a06f695c97f"
     },
     {
-      "path": "assets/fonts/comfortaa-latin-400-normal.woff",
-      "sha1": "999b48e0e587c16b6148fc4f6f4baa79e8e20f8a"
+      "path": "assets/fonts/plus-jakarta-sans-latin-500-italic.ttf",
+      "sha1": "029a9211318ec2bf6f9ba007fb6f96249f454ab9"
     },
     {
-      "path": "assets/fonts/comfortaa-latin-400-normal.woff2",
-      "sha1": "603746b9b81c8687a95e1a5743ddb087c9b71b5a"
+      "path": "assets/fonts/plus-jakarta-sans-latin-500-normal.ttf",
+      "sha1": "63764981d278d5007cb7b14900ee38dcede13be7"
     },
     {
-      "path": "assets/fonts/comfortaa-latin-500-normal.ttf",
-      "sha1": "d79f3ba2f27e4d3d59d93e3de84b8ff8b1e141cc"
+      "path": "assets/fonts/plus-jakarta-sans-latin-600-italic.ttf",
+      "sha1": "9275a0926f3366a0940546957d9010625c1892f7"
     },
     {
-      "path": "assets/fonts/comfortaa-latin-500-normal.woff",
-      "sha1": "482fcf61df59808f4d57a137ac9c5fcf60b86349"
+      "path": "assets/fonts/plus-jakarta-sans-latin-600-normal.ttf",
+      "sha1": "14d0fbbda78bb7d2b5334810240e1946767fc756"
     },
     {
-      "path": "assets/fonts/comfortaa-latin-500-normal.woff2",
-      "sha1": "dd29cf85f06ab010f99a0b822b085a748eedaa66"
+      "path": "assets/fonts/plus-jakarta-sans-latin-700-italic.ttf",
+      "sha1": "b7cc36f0918cfd9cced4b387f2cbcb1b2adbb472"
     },
     {
-      "path": "assets/fonts/comfortaa-latin-600-normal.ttf",
-      "sha1": "553cb17b2084752adf0bddd1849c8a909cbac99f"
+      "path": "assets/fonts/plus-jakarta-sans-latin-700-normal.ttf",
+      "sha1": "240bd583474e79fee7bb054d50186b4a334ab028"
     },
     {
-      "path": "assets/fonts/comfortaa-latin-600-normal.woff",
-      "sha1": "b45d3e49a05c649099174997d69ecd26a3f2fe58"
+      "path": "assets/fonts/plus-jakarta-sans-latin-800-italic.ttf",
+      "sha1": "750719b19b485b046b7a473ce85f2ab946de22be"
     },
     {
-      "path": "assets/fonts/comfortaa-latin-600-normal.woff2",
-      "sha1": "6c6e59221c6041ede54c847754f9001a60daad37"
+      "path": "assets/fonts/plus-jakarta-sans-latin-800-normal.ttf",
+      "sha1": "b3cd426ab4f9322ebafa6c323b09880e9851580c"
     },
     {
-      "path": "assets/fonts/comfortaa-latin-700-normal.ttf",
-      "sha1": "c33b5c551c18c0ec0c52cec5865b4bcf8cf9c725"
+      "path": "assets/fonts/plus-jakarta-sans-latin-ext-200-italic.ttf",
+      "sha1": "15c208b6daa4b1fd03b816b9c5e4ac54ace0059d"
     },
     {
-      "path": "assets/fonts/comfortaa-latin-700-normal.woff",
-      "sha1": "b7b8a46429ec9cd6359fa4ce0df0f4f5d96d8512"
+      "path": "assets/fonts/plus-jakarta-sans-latin-ext-200-normal.ttf",
+      "sha1": "f78d6f51d23feb5c326ff2a31307d7516c533950"
     },
     {
-      "path": "assets/fonts/comfortaa-latin-700-normal.woff2",
-      "sha1": "b3d444de929c5375139809d6b97c0e8cfe83a89f"
+      "path": "assets/fonts/plus-jakarta-sans-latin-ext-300-italic.ttf",
+      "sha1": "bdcd2393e175a9b868a9f176a4da974a32959f7d"
     },
     {
-      "path": "assets/fonts/comfortaa-latin-ext-300-normal.ttf",
-      "sha1": "ede4d4f6b5c2db5508dab0c6218ed9e2144022ee"
+      "path": "assets/fonts/plus-jakarta-sans-latin-ext-300-normal.ttf",
+      "sha1": "a900c48a19bab94befa33e265488ff73450b9087"
     },
     {
-      "path": "assets/fonts/comfortaa-latin-ext-300-normal.woff",
-      "sha1": "5d0a675c5b7bc3a36d25fc11d42d08e72fc97bdc"
+      "path": "assets/fonts/plus-jakarta-sans-latin-ext-400-italic.ttf",
+      "sha1": "e150f9a695fc8dc7339fd18b3122f068e6000cce"
     },
     {
-      "path": "assets/fonts/comfortaa-latin-ext-300-normal.woff2",
-      "sha1": "a11abff2cdc9a9ca904eef55fc61e23493968540"
+      "path": "assets/fonts/plus-jakarta-sans-latin-ext-400-normal.ttf",
+      "sha1": "205d3e810a8c3eb99896fa82e0b41e7296ec6657"
     },
     {
-      "path": "assets/fonts/comfortaa-latin-ext-400-normal.ttf",
-      "sha1": "5645294f52616bb58bfeffb7ebadc5a82bb10925"
+      "path": "assets/fonts/plus-jakarta-sans-latin-ext-500-italic.ttf",
+      "sha1": "3d59d5b035571b54dedc777b5752ecc8ad341cd2"
     },
     {
-      "path": "assets/fonts/comfortaa-latin-ext-400-normal.woff",
-      "sha1": "b3a8d7493238d77c2c7a41d02d80490ed71b1e61"
+      "path": "assets/fonts/plus-jakarta-sans-latin-ext-500-normal.ttf",
+      "sha1": "82b500b7983b43571f37d324306a67a81f0e4c95"
     },
     {
-      "path": "assets/fonts/comfortaa-latin-ext-400-normal.woff2",
-      "sha1": "1306075fb4277ffe09a7e6b0682e470ca19fed12"
+      "path": "assets/fonts/plus-jakarta-sans-latin-ext-600-italic.ttf",
+      "sha1": "84f18b6519023753056c3bddfb4ad4ef6c9a553e"
     },
     {
-      "path": "assets/fonts/comfortaa-latin-ext-500-normal.ttf",
-      "sha1": "3d237792e74521e81225ad2d678e47cbe19a6a2b"
+      "path": "assets/fonts/plus-jakarta-sans-latin-ext-600-normal.ttf",
+      "sha1": "d9a0846d0654513ae30d4c62bc927a1242787515"
     },
     {
-      "path": "assets/fonts/comfortaa-latin-ext-500-normal.woff",
-      "sha1": "863039c2660454b542d89a215bb0a0eada71f05f"
+      "path": "assets/fonts/plus-jakarta-sans-latin-ext-700-italic.ttf",
+      "sha1": "a0587cd88cb48d7efdeb5cf80d9a62f8f08663e2"
     },
     {
-      "path": "assets/fonts/comfortaa-latin-ext-500-normal.woff2",
-      "sha1": "35efe84cf0181b37612c5ec41aaa5db421013cba"
+      "path": "assets/fonts/plus-jakarta-sans-latin-ext-700-normal.ttf",
+      "sha1": "909bd2e4dd6d8ef066caa7643185a05ff6ce4f51"
     },
     {
-      "path": "assets/fonts/comfortaa-latin-ext-600-normal.ttf",
-      "sha1": "300eca201e37b66912538f6a556ae65e8170ef84"
+      "path": "assets/fonts/plus-jakarta-sans-latin-ext-800-italic.ttf",
+      "sha1": "f41b96898e9f944cf1c127a55ad6f86efd108a10"
     },
     {
-      "path": "assets/fonts/comfortaa-latin-ext-600-normal.woff",
-      "sha1": "9cc29905bbda1f02edd358f2f63261e1afe8be38"
-    },
-    {
-      "path": "assets/fonts/comfortaa-latin-ext-600-normal.woff2",
-      "sha1": "cf5d36699c2ef9b1871264985c5a21cb70c250ac"
-    },
-    {
-      "path": "assets/fonts/comfortaa-latin-ext-700-normal.ttf",
-      "sha1": "90bd8af291216257dfce5e99b06cd7720359e3f4"
-    },
-    {
-      "path": "assets/fonts/comfortaa-latin-ext-700-normal.woff",
-      "sha1": "335349da9e588ed146c3cd836941dd2ba34221f9"
-    },
-    {
-      "path": "assets/fonts/comfortaa-latin-ext-700-normal.woff2",
-      "sha1": "3a5e13789f49e6e2d5c9b6ac597e215108dd03eb"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-300-normal.ttf",
-      "sha1": "b7cbc050796ee3f7cc8953f2000969d27b2c0611"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-300-normal.woff",
-      "sha1": "85b24c58040ea25bcd1d057e307684110c769185"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-300-normal.woff2",
-      "sha1": "9ee6667fe6c13890a2b7f6368713f83815fb10b1"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-400-normal.ttf",
-      "sha1": "a38cf1bd753603d241dc88d6c15f7de215e5c476"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-400-normal.woff",
-      "sha1": "85e502932977ff32d4fc326a500fb7f228614910"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-400-normal.woff2",
-      "sha1": "2264ce1a9b49e39b53007851cbeb3e5b1f514a9d"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-500-normal.ttf",
-      "sha1": "7bc72d207d3db240d40ca2764cbecd690b618464"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-500-normal.woff",
-      "sha1": "25544c59ab69676fa17495cceddeaa46c4add498"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-500-normal.woff2",
-      "sha1": "0af41467a76573b6ea37a3b3b4a20244096b3166"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-600-normal.ttf",
-      "sha1": "78b732cfc081b9dc4659451a8619e42e87a2a82a"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-600-normal.woff",
-      "sha1": "bba1d7c64248593f81843db47b1cd177c352a4a1"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-600-normal.woff2",
-      "sha1": "183717762ad8ae04b959035e59b7e5ac43ca3570"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-700-normal.ttf",
-      "sha1": "60ea0f12c5f5205252e47370c72058ff2afb95c0"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-700-normal.woff",
-      "sha1": "909d8467481952aae64983317ec07edfe95f0751"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-700-normal.woff2",
-      "sha1": "a3ffd7868e409c1e0fe4a4c4dc9a9d6f01c00457"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-800-normal.ttf",
-      "sha1": "3cf9f28cba224148328932b193c0b69292310cad"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-800-normal.woff",
-      "sha1": "838c29705f7219f6acd357586e66d36deffb7bd4"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-800-normal.woff2",
-      "sha1": "d852edeeaddf6f4be12f4a92737788654eb2794f"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-900-normal.ttf",
-      "sha1": "49d0545b337664f7c4a05099030f1f68c65bcc46"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-900-normal.woff",
-      "sha1": "4154021fda081ee2072adf1a564d9b517753e05f"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-900-normal.woff2",
-      "sha1": "d04b3e8e1c16f0247b8f8270b0c0c2b862f32680"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-ext-100-normal.ttf",
-      "sha1": "c5266d7634d23fcc79a834568836af0c0b3f3db1"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-ext-100-normal.woff",
-      "sha1": "d061477d42c6df677b944464600ec36429771fbd"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-ext-100-normal.woff2",
-      "sha1": "b3c8d52bea09ed07e926a740458be9604ae3d568"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-ext-200-normal.ttf",
-      "sha1": "9b2d8bd9b6a2e2e9d2d68e0764ef40db669d7688"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-ext-200-normal.woff",
-      "sha1": "9cdc33567eb5949239c5acb213a3876aaad8e0dc"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-ext-200-normal.woff2",
-      "sha1": "82e2921a8cc0e32896de3548ed878e85b27ead3a"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-ext-300-normal.ttf",
-      "sha1": "730e371988f5fb5e372f40975f0f22c8741c8c81"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-ext-300-normal.woff",
-      "sha1": "f2f4ff64995e1b8d0cd67e1ea20dd917f28ed72a"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-ext-300-normal.woff2",
-      "sha1": "f1f21815d341e2e2250844b34b60f507308a85f0"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-ext-400-normal.ttf",
-      "sha1": "990c115881070513fb6795be4de0aab6e5011a43"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-ext-400-normal.woff",
-      "sha1": "e73a39ca29c748e32ba94fd0aeb87cf34c565d4a"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-ext-400-normal.woff2",
-      "sha1": "3ad9d4fa7038ace7e5325dafd0ba20b1a37a9a58"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-ext-500-normal.ttf",
-      "sha1": "9094f951748bad50db5ed09380f8e6656111d917"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-ext-500-normal.woff",
-      "sha1": "ba8e06b1233d22dbbb9f537b7db7e7c05d0c6b9a"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-ext-500-normal.woff2",
-      "sha1": "13d95a6591119283f0fca80bc42ece235e7ee74a"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-ext-600-normal.ttf",
-      "sha1": "f89c703f9687d8b81f5f53259309aa8a9d7b32cb"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-ext-600-normal.woff",
-      "sha1": "11d96c98996d6e9f0c0a77bac6b4cf3439b0074e"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-ext-600-normal.woff2",
-      "sha1": "b623443a667cd8d80a6556f277f5f8e2def2c4dc"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-ext-700-normal.ttf",
-      "sha1": "2d8768e8d6adb8e8c93f607a64d598acabcff3ba"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-ext-700-normal.woff",
-      "sha1": "75a35c9577b3c725899821574dad8c80edab514a"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-ext-700-normal.woff2",
-      "sha1": "c7ad2dd5c8211914d2e930fd297075f491b71b64"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-ext-800-normal.ttf",
-      "sha1": "1b4ee5ee4b08e0e4d24125dca6aa2787ca76b6a1"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-ext-800-normal.woff",
-      "sha1": "34ba3026f790525a784859e08a5690d98b94e1c9"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-ext-800-normal.woff2",
-      "sha1": "33656fa3bc1856ec94675a9b22336f4b15a3587b"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-ext-900-normal.ttf",
-      "sha1": "d43c3a1e244ab41296d7cb997531612e9659affc"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-ext-900-normal.woff",
-      "sha1": "0a9cee7fd5e211a5a393512fca5e0c6cce514749"
-    },
-    {
-      "path": "assets/fonts/outfit-latin-ext-900-normal.woff2",
-      "sha1": "a804eb6c0a1f1a7551a135ba85dee27b65f9c89e"
+      "path": "assets/fonts/plus-jakarta-sans-latin-ext-800-normal.ttf",
+      "sha1": "8b202e58997a967437ede73cffff55c7e2ab2484"
     }
   ]
 }

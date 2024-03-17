@@ -49,32 +49,34 @@
 	<false/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>comfortaa-latin-300-normal.ttf</string>
-		<string>comfortaa-latin-400-normal.ttf</string>
-		<string>comfortaa-latin-500-normal.ttf</string>
-		<string>comfortaa-latin-600-normal.ttf</string>
-		<string>comfortaa-latin-700-normal.ttf</string>
-		<string>comfortaa-latin-ext-300-normal.ttf</string>
-		<string>comfortaa-latin-ext-400-normal.ttf</string>
-		<string>comfortaa-latin-ext-500-normal.ttf</string>
-		<string>comfortaa-latin-ext-600-normal.ttf</string>
-		<string>comfortaa-latin-ext-700-normal.ttf</string>
-		<string>outfit-latin-300-normal.ttf</string>
-		<string>outfit-latin-400-normal.ttf</string>
-		<string>outfit-latin-500-normal.ttf</string>
-		<string>outfit-latin-600-normal.ttf</string>
-		<string>outfit-latin-700-normal.ttf</string>
-		<string>outfit-latin-800-normal.ttf</string>
-		<string>outfit-latin-900-normal.ttf</string>
-		<string>outfit-latin-ext-100-normal.ttf</string>
-		<string>outfit-latin-ext-200-normal.ttf</string>
-		<string>outfit-latin-ext-300-normal.ttf</string>
-		<string>outfit-latin-ext-400-normal.ttf</string>
-		<string>outfit-latin-ext-500-normal.ttf</string>
-		<string>outfit-latin-ext-600-normal.ttf</string>
-		<string>outfit-latin-ext-700-normal.ttf</string>
-		<string>outfit-latin-ext-800-normal.ttf</string>
-		<string>outfit-latin-ext-900-normal.ttf</string>
+		<string>plus-jakarta-sans-latin-200-italic.ttf</string>
+		<string>plus-jakarta-sans-latin-200-normal.ttf</string>
+		<string>plus-jakarta-sans-latin-300-italic.ttf</string>
+		<string>plus-jakarta-sans-latin-300-normal.ttf</string>
+		<string>plus-jakarta-sans-latin-400-italic.ttf</string>
+		<string>plus-jakarta-sans-latin-400-normal.ttf</string>
+		<string>plus-jakarta-sans-latin-500-italic.ttf</string>
+		<string>plus-jakarta-sans-latin-500-normal.ttf</string>
+		<string>plus-jakarta-sans-latin-600-italic.ttf</string>
+		<string>plus-jakarta-sans-latin-600-normal.ttf</string>
+		<string>plus-jakarta-sans-latin-700-italic.ttf</string>
+		<string>plus-jakarta-sans-latin-700-normal.ttf</string>
+		<string>plus-jakarta-sans-latin-800-italic.ttf</string>
+		<string>plus-jakarta-sans-latin-800-normal.ttf</string>
+		<string>plus-jakarta-sans-latin-ext-200-italic.ttf</string>
+		<string>plus-jakarta-sans-latin-ext-200-normal.ttf</string>
+		<string>plus-jakarta-sans-latin-ext-300-italic.ttf</string>
+		<string>plus-jakarta-sans-latin-ext-300-normal.ttf</string>
+		<string>plus-jakarta-sans-latin-ext-400-italic.ttf</string>
+		<string>plus-jakarta-sans-latin-ext-400-normal.ttf</string>
+		<string>plus-jakarta-sans-latin-ext-500-italic.ttf</string>
+		<string>plus-jakarta-sans-latin-ext-500-normal.ttf</string>
+		<string>plus-jakarta-sans-latin-ext-600-italic.ttf</string>
+		<string>plus-jakarta-sans-latin-ext-600-normal.ttf</string>
+		<string>plus-jakarta-sans-latin-ext-700-italic.ttf</string>
+		<string>plus-jakarta-sans-latin-ext-700-normal.ttf</string>
+		<string>plus-jakarta-sans-latin-ext-800-italic.ttf</string>
+		<string>plus-jakarta-sans-latin-ext-800-normal.ttf</string>
 	</array>
 </dict>
 </plist>

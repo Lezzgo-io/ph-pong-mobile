@@ -117,8 +117,16 @@ function Register({navigation}) {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
-        <Text style={[text.title, text.color.black]}>Registration</Text>
         <View style={[card.container]}>
+          <Text
+            style={[
+              text.jumbo,
+              text.color.black,
+              text.fullWidth,
+              thisText.title,
+            ]}>
+            Registration
+          </Text>
           {/* First name */}
           <Text style={[text.label, text.color.black]}>First name</Text>
           <TextInput
@@ -169,7 +177,7 @@ function Register({navigation}) {
           />
           {/* Register button */}
           <TouchableOpacity
-            style={[button.contained, bgColor.red]}
+            style={[button.contained, bgColor.blue, thisButton.register]}
             onPress={() => handleRegister()}
             disabled={loading}>
             <Text style={[text.h1, text.color.white]}>Register</Text>
@@ -185,7 +193,10 @@ function Register({navigation}) {
           <TouchableOpacity
             style={[button.link, text.color.black]}
             onPress={() => navigation.navigate('Login')}>
-            <Text style={[text.h1, text.color.black]}>Login instead</Text>
+            <Text style={[text.normal, text.color.black]}>
+              <Text style={[text.color.grey]}>Already registered?</Text> Login
+              here
+            </Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -208,9 +219,18 @@ const view = StyleSheet.create({
 const card = StyleSheet.create({
   container: {
     width: '80%',
-    padding: 12,
-    borderWidth: 1,
-    borderRadius: 4,
+  },
+});
+
+const thisText = StyleSheet.create({
+  title: {
+    marginBottom: 32,
+  },
+});
+
+const thisButton = StyleSheet.create({
+  register: {
+    marginTop: 32,
   },
 });
 
