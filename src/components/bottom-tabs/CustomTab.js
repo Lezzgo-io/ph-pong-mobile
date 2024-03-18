@@ -1,28 +1,34 @@
 import React from 'react';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 
-import UserIcon from '../../assets/user.png';
-import HomeIcon from '../../assets/home.png';
-import SwordsIcon from '../../assets/swords.png';
-import MenuIcon from '../../assets/menu.png';
-import NftIcon from '../../assets/nft.png';
+import UserIcon from '../../assets/bottom-tabs/user.png';
+import UserIconSelected from '../../assets/bottom-tabs/user-selected.png';
+import HomeIcon from '../../assets/bottom-tabs/home.png';
+import HomeIconSelected from '../../assets/bottom-tabs/home-selected.png';
+import SwordsIcon from '../../assets/bottom-tabs/swords.png';
+import SwordsIconSelected from '../../assets/bottom-tabs/swords-selected.png';
+import MenuIcon from '../../assets/bottom-tabs/menu.png';
+import NftIcon from '../../assets/bottom-tabs/nft.png';
+import NftIconSelected from '../../assets/bottom-tabs/nft-selected.png';
 
 const CustomTab = ({state, descriptors, navigation}) => {
-  const icon = {
-    Home: HomeIcon,
-    Challenge: SwordsIcon,
-    Profile: UserIcon,
-    Nfts: NftIcon,
-    Menu: MenuIcon,
-  };
+  const show = ['Home', 'Challenge', 'Nfts', 'Profile'];
 
   return (
     <View style={tab.container}>
       {state.routes
-        .filter(i => i.name in icon)
+        .filter(i => show.includes(i.name))
         .map((route, index) => {
           const {options} = descriptors[route.key];
           const isFocused = state.index === index;
+
+          const icon = {
+            Home: isFocused ? HomeIconSelected : HomeIcon,
+            Nfts: isFocused ? NftIconSelected : NftIcon,
+            Challenge: isFocused ? SwordsIconSelected : SwordsIcon,
+            Profile: isFocused ? UserIconSelected : UserIcon,
+            Menu: MenuIcon,
+          };
 
           const onPress = () => {
             const event = navigation.emit({
@@ -60,16 +66,17 @@ const CustomTab = ({state, descriptors, navigation}) => {
 const tab = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    borderTopWidth: 1,
     backgroundColor: 'white',
   },
   button: {
     flexGrow: 1,
     alignItems: 'center',
+    padding: 12,
   },
   icon: {
-    width: 32,
-    resizeMode: 'contain',
+    width: 36,
+    height: 36,
+    resizeMode: 'stretch',
   },
 });
 

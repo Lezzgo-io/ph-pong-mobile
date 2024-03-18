@@ -1,5 +1,13 @@
 import {StyleSheet} from 'react-native';
 
+export const container = StyleSheet.create({
+  title: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+});
+
 export const text = StyleSheet.create({
   fullWidth: {
     width: '100%',
@@ -48,6 +56,7 @@ export const text = StyleSheet.create({
     black: {color: 'black'},
     white: {color: 'white'},
     grey: {color: 'grey'},
+    blue: {color: '#173992'},
   },
 });
 

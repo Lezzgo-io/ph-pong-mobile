@@ -36,7 +36,7 @@ function BottomTabs() {
       screenListeners={({navigation}) => ({
         state: e => {},
       })}>
-      {user ? (
+      {true ? (
         <React.Fragment>
           <Tab.Screen name="Home" component={Home} />
           <Tab.Screen name="Nfts" component={Nfts} />

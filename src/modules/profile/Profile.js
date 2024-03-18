@@ -44,16 +44,16 @@ function Profile() {
           <Image style={styles.profileImage} source={Placeholder} />
           <Text style={[text.label, text.color.grey]}>Name</Text>
           <Text style={[text.normal, text.color.black]}>
-            {user.first_name} {user.last_name}
+            {user?.first_name} {user?.last_name}
           </Text>
           <Text style={[text.label, text.color.grey]}>Username</Text>
           <Text style={[text.normal, text.color.black]}>
-            @{user.first_name.toLowerCase()}-{user.last_name.toLowerCase()}
+            @{user?.first_name?.toLowerCase()}-{user?.last_name?.toLowerCase()}
           </Text>
           <Text style={[text.label, text.color.grey]}>Email address</Text>
-          <Text style={[text.normal, text.color.black]}>{user.email}</Text>
+          <Text style={[text.normal, text.color.black]}>{user?.email}</Text>
           <Text style={[text.label, text.color.grey]}>Mobile</Text>
-          <Text style={[text.normal, text.color.black]}>{user.mobile}</Text>
+          <Text style={[text.normal, text.color.black]}>{user?.mobile}</Text>
         </View>
         <View style={styles.view.card.container}>
           <Text style={[text.label, text.color.grey, text.color.black]}>
