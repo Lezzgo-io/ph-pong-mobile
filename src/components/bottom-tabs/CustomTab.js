@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 import UserIcon from '../../assets/bottom-tabs/user.png';
 import UserIconSelected from '../../assets/bottom-tabs/user-selected.png';
@@ -10,6 +10,7 @@ import SwordsIconSelected from '../../assets/bottom-tabs/swords-selected.png';
 import MenuIcon from '../../assets/bottom-tabs/menu.png';
 import NftIcon from '../../assets/bottom-tabs/nft.png';
 import NftIconSelected from '../../assets/bottom-tabs/nft-selected.png';
+import {text} from '../../styles/app';
 
 const CustomTab = ({state, descriptors, navigation}) => {
   const show = ['Home', 'Challenge', 'Nfts', 'Profile'];
@@ -56,12 +57,21 @@ const CustomTab = ({state, descriptors, navigation}) => {
               key={index}
               style={tab.button}>
               <Image source={icon[route.name]} style={tab.icon} />
+              <Text style={[thisText.label, text.color.black]}>
+                {route.name}
+              </Text>
             </TouchableOpacity>
           );
         })}
     </View>
   );
 };
+
+const thisText = StyleSheet.create({
+  label: {
+    marginBottom: 0,
+  },
+});
 
 const tab = StyleSheet.create({
   container: {
@@ -74,8 +84,8 @@ const tab = StyleSheet.create({
     padding: 12,
   },
   icon: {
-    width: 36,
-    height: 36,
+    width: 24,
+    height: 24,
     resizeMode: 'stretch',
   },
 });

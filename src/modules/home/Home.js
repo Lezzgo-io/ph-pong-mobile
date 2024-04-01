@@ -3,7 +3,6 @@ import {
   Image,
   RefreshControl,
   ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -81,6 +80,13 @@ function Home({navigation}) {
             </Text>
           </View>
         </View>
+        <Text style={[text.title, text.color.black]}>Ongoing Matches</Text>
+        <View style={[card.ongoingMatches]}>
+          <Text>Match 1</Text>
+        </View>
+        <View style={[card.ongoingMatches]}>
+          <Text>Match 2</Text>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -89,9 +95,9 @@ function Home({navigation}) {
 const view = StyleSheet.create({
   safeArea: {
     flex: 1,
-    paddingTop: StatusBar.currentHeight,
   },
   scroll: {
+    paddingTop: 20,
     marginHorizontal: 20,
   },
 });
@@ -116,14 +122,14 @@ const card = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
-    height: 92,
+    height: 128,
     borderRadius: 12,
     overflow: 'hidden',
   },
   nftCircle: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
+    width: 72,
+    height: 92,
+    borderRadius: 12,
     backgroundColor: '#4ac2db',
   },
   nftCircleLabel: {
@@ -131,6 +137,15 @@ const card = StyleSheet.create({
     width: '100%',
     bottom: -24,
     textAlign: 'center',
+  },
+  ongoingMatches: {
+    width: '100%',
+    height: 152,
+    marginVertical: 16,
+    padding: 16,
+    borderRadius: 12,
+    backgroundColor: '#4ac2db',
+    overflow: 'hidden',
   },
 });
 

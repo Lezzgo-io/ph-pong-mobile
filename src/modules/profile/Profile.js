@@ -4,7 +4,6 @@ import {
   Image,
   RefreshControl,
   ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
   TextInput,
@@ -17,6 +16,7 @@ import Global from '../../util/global';
 import {bgColor, button, text} from '../../styles/app';
 
 import Placeholder from '../../assets/placeholder.jpeg';
+import ProfileImageBg from '../../assets/profile-image-bg.png';
 
 function Profile() {
   const {user} = useContext(Global);
@@ -39,7 +39,9 @@ function Profile() {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
-        <Text style={[text.title, text.color.black]}>Profile</Text>
+        <View style={[design.bannerContainer]}>
+          <Image style={[design.bannerImage]} source={ProfileImageBg} />
+        </View>
         <View style={styles.view.card.container}>
           <Image style={styles.profileImage} source={Placeholder} />
           <Text style={[text.label, text.color.grey]}>Name</Text>
@@ -78,21 +80,36 @@ function Profile() {
   );
 }
 
+const design = {
+  bannerContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: 172,
+    overflow: 'hidden',
+  },
+  bannerImage: {
+    zIndex: 1,
+    width: '100%',
+    height: 172,
+    resizeMode: 'cover',
+  },
+};
+
 const styles = StyleSheet.create({
   view: {
     safeArea: {
       flex: 1,
-      paddingTop: StatusBar.currentHeight,
     },
     scroll: {
-      marginHorizontal: 20,
+      marginHorizontal: 0,
     },
     card: {
       container: {
+        marginTop: 90,
         marginBottom: 16,
         padding: 16,
-        borderWidth: 1,
-        borderRadius: 15,
       },
     },
   },
@@ -101,6 +118,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     width: 128,
     height: 128,
+    alignSelf: 'center',
     resizeMode: 'contain',
   },
 });

@@ -1,5 +1,6 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {
+  Image,
   Modal,
   RefreshControl,
   ScrollView,
@@ -22,6 +23,9 @@ import {bgColor, button, text} from '../../styles/app';
 
 import MatchCard from '../../components/widgets/MatchCard';
 import MatchService from '../../services/MatchService';
+
+import JoinMatchCardBg from '../../assets/join-match-card-bg-01.png';
+import CreateMatchCardBg from '../../assets/create-match-card-bg.png';
 
 function Challenge({navigation}) {
   const {user} = useContext(Global);
@@ -153,12 +157,14 @@ function Challenge({navigation}) {
           <Text style={[text.title, text.color.black]}>Challenge</Text>
           <TouchableOpacity onPress={() => navigation.navigate('Join Match')}>
             <View style={[card.container, card.bgColor.blue]}>
+              <Image style={[card.bgImage]} source={JoinMatchCardBg} />
               <Text style={[text.h1, text.color.white]}>JOIN A MATCH</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => setModal({...modal, createOpen: true})}>
             <View style={[card.container, card.bgColor.red]}>
+              <Image style={[card.bgImage]} source={CreateMatchCardBg} />
               <Text style={[text.h1, text.color.white]}>CREATE A MATCH</Text>
             </View>
           </TouchableOpacity>
@@ -304,6 +310,7 @@ const cameraStyle = StyleSheet.create({
 
 const card = StyleSheet.create({
   container: {
+    position: 'relative',
     dispay: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -311,10 +318,20 @@ const card = StyleSheet.create({
     marginBottom: 24,
     padding: 16,
     borderRadius: 15,
+    overflow: 'hidden',
   },
   bgColor: {
     red: {backgroundColor: '#c10b22'},
     blue: {backgroundColor: '#1a439f'},
+  },
+  bgImage: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    zIndex: -1,
+    width: '140%',
+    height: '140%',
+    resizeMode: 'cover',
   },
 });
 
