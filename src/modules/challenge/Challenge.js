@@ -4,19 +4,12 @@ import {
   Modal,
   RefreshControl,
   ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {
-  Camera,
-  useCameraDevice,
-  useCameraPermission,
-  useCodeScanner,
-} from 'react-native-vision-camera';
 
 import Global from '../../util/global';
 import {bgColor, button, text} from '../../styles/app';
@@ -37,50 +30,64 @@ function Challenge({navigation}) {
     scannerOpen: false,
   });
 
-  const [versus, setVersus] = useState('1v1');
   const [matches, setMatches] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [match, setMatch] = useState({});
 
-  const [camera, setCamera] = useState({
-    scanning: false,
-    active: false,
-    device: useCameraDevice('back'),
-  });
+  const [branches, setBranches] = useState([
+    {
+      id: 'branch1',
+      label: 'Branch 1',
+      selected: true,
+    },
+    {
+      id: 'branch2',
+      label: 'Branch 2',
+      selected: false,
+    },
+    {
+      id: 'branch3',
+      label: 'Branch 3',
+      selected: false,
+    },
+  ]);
 
-  const {hasPermission, requestPermission} = useCameraPermission();
+  const [versus, setVersus] = useState([
+    {
+      id: '1v1',
+      label: '1 VS 1',
+      selected: true,
+    },
+    {
+      id: '2v2',
+      label: '2 VS 2',
+      selected: false,
+    },
+    {
+      id: '3v3',
+      label: '3 VS 3',
+      selected: false,
+    },
+    {
+      id: '4v4',
+      label: '4 VS 4',
+      selected: false,
+    },
+    {
+      id: '5v5',
+      label: '5 VS 5',
+      selected: false,
+    },
+  ]);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
-    setCamera({...camera, scanning: false, active: true, hidden: false});
     handleListMatches();
 
     setTimeout(() => {
       setRefreshing(false);
     }, 2000);
-  }, [camera, handleListMatches]);
-
-  const handleCodeScanner = useCodeScanner({
-    codeTypes: ['qr', 'ean-13'],
-
-    onCodeScanned: codes => {
-      let message = codes.map((i, iKey) => i.value);
-      if (
-        !camera.scanning &&
-        message.includes('https://lezzgo.io/collection/philippine-pong')
-      ) {
-        setCamera({...camera, scanning: true, active: false});
-        setModal({...modal, scannerOpen: false});
-
-        if (Object.keys(match).length) {
-          handlePayGameFee();
-        }
-      }
-    },
-  });
-
-  const handleCameraError = useCallback((error: CameraRuntimeError) => {
-    console.error(error);
-  }, []);
+  }, [handleListMatches]);
 
   const handleListMatches = useCallback(() => {
     MatchService.getByUser(user.auth_uid, user.access_token)
@@ -100,7 +107,7 @@ function Challenge({navigation}) {
         creator_last_name: user.last_name,
         creator_email: user.email,
         creator_mobile: user.mobile,
-        type: versus,
+        type: versus.filter(i => i.selected)[0].id,
       },
       user.access_token,
     )
@@ -113,38 +120,25 @@ function Challenge({navigation}) {
       });
   }, [modal, user, handleListMatches, versus]);
 
-  const handlePayGameFee = useCallback(() => {
-    MatchService.payGameFee({paid: true}, match.doc_uid, user.access_token)
-      .then(response => {
-        console.log(response.data);
-      })
-      .catch(error => {
-        console.log(JSON.stringify(error));
-      })
-      .finally(() => {
-        handleListMatches();
-        setMatch({});
-      });
-  }, [user, match, handleListMatches]);
+  const selectVersus = versusId => {
+    let temp = [...versus];
+    temp = temp.map(i => ({...i, selected: false}));
+    let found = temp.find(i => i.id === versusId);
+    found.selected = true;
+    setVersus(temp);
+  };
+
+  const selectBranch = branchId => {
+    let temp = [...branches];
+    temp = temp.map(i => ({...i, selected: false}));
+    let found = temp.find(i => i.id === branchId);
+    found.selected = true;
+    setBranches(temp);
+  };
 
   useEffect(() => {
     handleListMatches();
   }, [handleListMatches]);
-
-  if (!hasPermission) {
-    requestPermission();
-    return;
-  }
-
-  if (camera.device == null) {
-    return (
-      <View>
-        <Text style={[text.title, text.color.black, text.align.center]}>
-          No Camera
-        </Text>
-      </View>
-    );
-  }
 
   return (
     <SafeAreaView style={view.safeArea}>
@@ -156,14 +150,14 @@ function Challenge({navigation}) {
         <View>
           <Text style={[text.title, text.color.black]}>Challenge</Text>
           <TouchableOpacity onPress={() => navigation.navigate('Join Match')}>
-            <View style={[card.container, card.bgColor.blue]}>
+            <View style={[card.container, bgColor.blue]}>
               <Image style={[card.bgImage]} source={JoinMatchCardBg} />
               <Text style={[text.h1, text.color.white]}>JOIN A MATCH</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => setModal({...modal, createOpen: true})}>
-            <View style={[card.container, card.bgColor.red]}>
+            <View style={[card.container, bgColor.red]}>
               <Image style={[card.bgImage]} source={CreateMatchCardBg} />
               <Text style={[text.h1, text.color.white]}>CREATE A MATCH</Text>
             </View>
@@ -184,7 +178,6 @@ function Challenge({navigation}) {
                   <TouchableOpacity
                     onPress={() => {
                       setModal({...modal, scannerOpen: true});
-                      setCamera({...camera, scanning: false, active: true});
                       setMatch(i);
                     }}>
                     <MatchCard data={i} />
@@ -203,75 +196,72 @@ function Challenge({navigation}) {
           <View style={modalStyle.display.center}>
             <View style={modalStyle.container}>
               <View>
-                <TouchableOpacity
-                  style={[button.contained, bgColor.blue]}
-                  onPress={() => setVersus('1v1')}>
-                  <Text style={[text.normal, text.color.white]}>1v1</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[button.contained, bgColor.blue]}
-                  onPress={() => setVersus('2v2')}>
-                  <Text style={[text.normal, text.color.white]}>2v2</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[button.contained, bgColor.blue]}
-                  onPress={() => setVersus('3v3')}>
-                  <Text style={[text.normal, text.color.white]}>3v3</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[button.contained, bgColor.blue]}
-                  onPress={() => setVersus('4v4')}>
-                  <Text style={[text.normal, text.color.white]}>4v4</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[button.contained, bgColor.blue]}
-                  onPress={() => setVersus('5v5')}>
-                  <Text style={[text.normal, text.color.white]}>5v5</Text>
-                </TouchableOpacity>
+                <Text style={[text.h1, text.color.black]}>Branch</Text>
+                {branches.map((i, iKey) => (
+                  <TouchableOpacity
+                    key={iKey}
+                    style={[
+                      thisButton.versus,
+                      i.selected ? bgColor.blue : bgColor.white,
+                    ]}
+                    onPress={() => selectBranch(i.id)}>
+                    <Text
+                      style={[
+                        text.normal,
+                        i.selected ? text.color.white : text.color.black,
+                        text.align.center,
+                      ]}>
+                      {i.label}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+                <Text
+                  style={[
+                    text.h1,
+                    text.color.black,
+                    thisText.selectVersusLabel,
+                  ]}>
+                  Match Type
+                </Text>
+                {versus.map((i, iKey) => (
+                  <TouchableOpacity
+                    key={iKey}
+                    style={[
+                      thisButton.versus,
+                      i.selected ? bgColor.blue : bgColor.white,
+                    ]}
+                    onPress={() => selectVersus(i.id)}>
+                    <Text
+                      style={[
+                        text.normal,
+                        i.selected ? text.color.white : text.color.black,
+                        text.align.center,
+                      ]}>
+                      {i.label}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
               </View>
-              <Text style={[text.h1, text.color.black]}>{versus}</Text>
               <View style={[modalStyle.footer]}>
                 <TouchableOpacity
-                  style={[button.contained, bgColor.grey]}
+                  style={[
+                    button.contained,
+                    bgColor.grey,
+                    thisButton.fullWidth,
+                    thisButton.footerButtons,
+                  ]}
                   onPress={() => setModal({...modal, createOpen: false})}>
                   <Text style={[text.h1, text.color.black]}>Close</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  style={[button.contained, bgColor.green]}
+                  style={[
+                    button.contained,
+                    bgColor.green,
+                    thisButton.fullWidth,
+                    thisButton.footerButtons,
+                  ]}
                   onPress={() => handleCreateMatch()}>
                   <Text style={[text.h1, text.color.black]}>Create</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-        </Modal>
-      </View>
-      <View style={modalStyle.display.center}>
-        <Modal
-          animationType="slide"
-          transparent={false}
-          visible={modal.scannerOpen}
-          onRequestClose={() => setModal({...modal, scannerOpen: false})}>
-          <View style={modalStyle.display.center}>
-            <View style={modalStyle.container}>
-              <View style={cameraStyle.container}>
-                <Camera
-                  style={cameraStyle.holder}
-                  device={camera.device}
-                  isActive={camera.active}
-                  codeScanner={handleCodeScanner}
-                  key={camera.device.id}
-                  onError={handleCameraError}
-                />
-              </View>
-              <View style={[modalStyle.footer]}>
-                <TouchableOpacity
-                  style={[button.contained, bgColor.grey]}
-                  onPress={() => {
-                    setModal({...modal, scannerOpen: false});
-                    setCamera({...camera, active: false});
-                  }}>
-                  <Text style={[text.h1, text.color.black]}>Close</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -282,29 +272,36 @@ function Challenge({navigation}) {
   );
 }
 
-const view = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    paddingTop: StatusBar.currentHeight,
+const thisButton = StyleSheet.create({
+  versus: {
+    minWidth: '100%',
+    paddingTop: 6,
+    borderBottomWidth: 1,
+    borderColor: 'rgba(0,0,0,0.2)',
+    borderRadius: 8,
+    alignItems: 'stretch',
   },
-  scroll: {
-    marginHorizontal: 20,
+  fullWidth: {
+    minWidth: '100%',
+  },
+  footerButtons: {
+    marginBottom: 8,
   },
 });
 
-const cameraStyle = StyleSheet.create({
-  container: {
-    width: 256,
-    height: 256,
-    borderWidth: 10,
-    borderColor: 'black',
-    overflow: 'hidden',
+const thisText = StyleSheet.create({
+  selectVersusLabel: {
+    marginTop: 16,
   },
-  holder: {
-    position: 'relative',
-    marginLeft: -256,
-    width: 512,
-    height: 512,
+});
+
+const view = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+  },
+  scroll: {
+    paddingTop: 20,
+    marginHorizontal: 20,
   },
 });
 
@@ -320,10 +317,6 @@ const card = StyleSheet.create({
     borderRadius: 15,
     overflow: 'hidden',
   },
-  bgColor: {
-    red: {backgroundColor: '#c10b22'},
-    blue: {backgroundColor: '#1a439f'},
-  },
   bgImage: {
     position: 'absolute',
     top: 0,
@@ -337,12 +330,11 @@ const card = StyleSheet.create({
 
 const modalStyle = StyleSheet.create({
   container: {
+    width: '70%',
     margin: 20,
     backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 16,
-    paddingLeft: 48,
-    paddingRight: 48,
+    borderRadius: 16,
+    padding: 24,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
@@ -363,7 +355,7 @@ const modalStyle = StyleSheet.create({
     },
   },
   footer: {
-    flexDirection: 'row',
+    marginTop: 16,
     alignItems: 'center',
   },
 });

@@ -57,6 +57,7 @@ export const text = StyleSheet.create({
     white: {color: 'white'},
     grey: {color: 'grey'},
     blue: {color: '#173992'},
+    red: {color: '#c10b22'},
   },
 });
 
@@ -66,6 +67,7 @@ export const button = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: 6,
+    paddingHorizontal: 16,
     borderRadius: 8,
   },
   link: {

@@ -28,7 +28,7 @@ class MatchService {
     return axios({
       method: 'GET',
       baseURL: URL.phPongMatchService(),
-      url: `/customer/matches/${authUid}/by-user`,
+      url: `/customer/matches/${authUid}/list-by-auth-uid`,
       headers: {
         'access-token': access_token,
       },
