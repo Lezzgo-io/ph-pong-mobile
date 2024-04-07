@@ -19,6 +19,7 @@ import MatchService from '../../services/MatchService';
 
 import JoinMatchCardBg from '../../assets/join-match-card-bg-01.png';
 import CreateMatchCardBg from '../../assets/create-match-card-bg.png';
+import QRCode from 'react-qr-code';
 
 function Challenge({navigation}) {
   const {user} = useContext(Global);
@@ -27,11 +28,10 @@ function Challenge({navigation}) {
 
   const [modal, setModal] = useState({
     createOpen: false,
-    scannerOpen: false,
+    qrCodeOpen: false,
   });
 
   const [matches, setMatches] = useState([]);
-  // eslint-disable-next-line no-unused-vars
   const [match, setMatch] = useState({});
 
   const [branches, setBranches] = useState([
@@ -177,7 +177,7 @@ function Challenge({navigation}) {
                 ) : (
                   <TouchableOpacity
                     onPress={() => {
-                      setModal({...modal, scannerOpen: true});
+                      setModal({...modal, qrCodeOpen: true});
                       setMatch(i);
                     }}>
                     <MatchCard data={i} />
@@ -186,91 +186,134 @@ function Challenge({navigation}) {
               </View>
             ))}
         </View>
-      </ScrollView>
-      <View style={modalStyle.display.center}>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modal.createOpen}
-          onRequestClose={() => setModal({...modal, createOpen: false})}>
-          <View style={modalStyle.display.center}>
-            <View style={modalStyle.container}>
-              <View>
-                <Text style={[text.h1, text.color.black]}>Branch</Text>
-                {branches.map((i, iKey) => (
-                  <TouchableOpacity
-                    key={iKey}
-                    style={[
-                      thisButton.versus,
-                      i.selected ? bgColor.blue : bgColor.white,
-                    ]}
-                    onPress={() => selectBranch(i.id)}>
-                    <Text
+        <View style={modalStyle.display.center}>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modal.createOpen}
+            onRequestClose={() => setModal({...modal, createOpen: false})}>
+            <View style={modalStyle.display.center}>
+              <View style={modalStyle.container}>
+                <View>
+                  <Text style={[text.h1, text.color.black]}>Branch</Text>
+                  {branches.map((i, iKey) => (
+                    <TouchableOpacity
+                      key={iKey}
                       style={[
-                        text.normal,
-                        i.selected ? text.color.white : text.color.black,
-                        text.align.center,
-                      ]}>
-                      {i.label}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
-                <Text
-                  style={[
-                    text.h1,
-                    text.color.black,
-                    thisText.selectVersusLabel,
-                  ]}>
-                  Match Type
-                </Text>
-                {versus.map((i, iKey) => (
-                  <TouchableOpacity
-                    key={iKey}
+                        thisButton.versus,
+                        i.selected ? bgColor.blue : bgColor.white,
+                      ]}
+                      onPress={() => selectBranch(i.id)}>
+                      <Text
+                        style={[
+                          text.normal,
+                          i.selected ? text.color.white : text.color.black,
+                          text.align.center,
+                        ]}>
+                        {i.label}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                  <Text
                     style={[
-                      thisButton.versus,
-                      i.selected ? bgColor.blue : bgColor.white,
-                    ]}
-                    onPress={() => selectVersus(i.id)}>
-                    <Text
+                      text.h1,
+                      text.color.black,
+                      thisText.selectVersusLabel,
+                    ]}>
+                    Match Type
+                  </Text>
+                  {versus.map((i, iKey) => (
+                    <TouchableOpacity
+                      key={iKey}
                       style={[
-                        text.normal,
-                        i.selected ? text.color.white : text.color.black,
-                        text.align.center,
-                      ]}>
-                      {i.label}
-                    </Text>
+                        thisButton.versus,
+                        i.selected ? bgColor.blue : bgColor.white,
+                      ]}
+                      onPress={() => selectVersus(i.id)}>
+                      <Text
+                        style={[
+                          text.normal,
+                          i.selected ? text.color.white : text.color.black,
+                          text.align.center,
+                        ]}>
+                        {i.label}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+                <View style={[modalStyle.footer]}>
+                  <TouchableOpacity
+                    style={[
+                      button.contained,
+                      bgColor.grey,
+                      thisButton.fullWidth,
+                      thisButton.footerButtons,
+                    ]}
+                    onPress={() => setModal({...modal, createOpen: false})}>
+                    <Text style={[text.h1, text.color.black]}>Close</Text>
                   </TouchableOpacity>
-                ))}
-              </View>
-              <View style={[modalStyle.footer]}>
-                <TouchableOpacity
-                  style={[
-                    button.contained,
-                    bgColor.grey,
-                    thisButton.fullWidth,
-                    thisButton.footerButtons,
-                  ]}
-                  onPress={() => setModal({...modal, createOpen: false})}>
-                  <Text style={[text.h1, text.color.black]}>Close</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[
-                    button.contained,
-                    bgColor.green,
-                    thisButton.fullWidth,
-                    thisButton.footerButtons,
-                  ]}
-                  onPress={() => handleCreateMatch()}>
-                  <Text style={[text.h1, text.color.black]}>Create</Text>
-                </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[
+                      button.contained,
+                      bgColor.green,
+                      thisButton.fullWidth,
+                      thisButton.footerButtons,
+                    ]}
+                    onPress={() => handleCreateMatch()}>
+                    <Text style={[text.h1, text.color.black]}>Create</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
-          </View>
-        </Modal>
-      </View>
+          </Modal>
+        </View>
+        <View style={modalStyle.display.center}>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modal.qrCodeOpen}
+            onRequestClose={() => setModal({...modal, qrCodeOpen: false})}>
+            <View style={modalStyle.display.center}>
+              <View style={modalStyle.container}>
+                <View style={[qrCode.container]}>
+                  <Text style={[text.h1, text.color.black, text.align.center]}>
+                    Pay and activate your game on cashier
+                  </Text>
+                  <QRCode
+                    value={`${match.doc_uid}:${match.creator_auth_uid}`}
+                    style={qrCode.image}
+                    size={212}
+                  />
+                </View>
+                <View style={[modalStyle.footer]}>
+                  <TouchableOpacity
+                    style={[
+                      button.contained,
+                      bgColor.grey,
+                      thisButton.fullWidth,
+                      thisButton.footerButtons,
+                    ]}
+                    onPress={() => setModal({...modal, qrCodeOpen: false})}>
+                    <Text style={[text.h1, text.color.black]}>Close</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </Modal>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
+
+const qrCode = StyleSheet.create({
+  container: {
+    padding: 16,
+    borderWidth: 2,
+    borderRadius: 12,
+    alignItems: 'center',
+  },
+});
 
 const thisButton = StyleSheet.create({
   versus: {

@@ -1,5 +1,4 @@
 import React, {useCallback, useContext} from 'react';
-import {StyleSheet} from 'react-native';
 
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
@@ -27,8 +26,6 @@ function BottomTabs() {
       tabBar={tabComponent}
       swipeEnabled={true}
       screenOptions={{
-        headerStyle: navigator.header,
-        headerTitleStyle: navigator.title,
         headerShadowVisible: false,
         headerShown: false,
         tabBarHideOnKeyboard: true,
@@ -58,14 +55,5 @@ function BottomTabs() {
     </Tab.Navigator>
   );
 }
-
-const navigator = StyleSheet.create({
-  header: {
-    backgroundColor: 'transparent',
-  },
-  title: {
-    fontFamily: 'comfortaa-latin-700-normal',
-  },
-});
 
 export default BottomTabs;
