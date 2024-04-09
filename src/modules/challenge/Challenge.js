@@ -279,6 +279,9 @@ function Challenge({navigation}) {
                   <Text style={[text.h1, text.color.black, text.align.center]}>
                     Pay and activate your game on cashier
                   </Text>
+                  <Text style={[text.normal, text.color.black]}>
+                    {match.doc_uid}
+                  </Text>
                   <QRCode
                     value={`${match.doc_uid}:${match.creator_auth_uid}`}
                     style={qrCode.image}
@@ -293,7 +296,10 @@ function Challenge({navigation}) {
                       thisButton.fullWidth,
                       thisButton.footerButtons,
                     ]}
-                    onPress={() => setModal({...modal, qrCodeOpen: false})}>
+                    onPress={() => {
+                      setModal({...modal, qrCodeOpen: false});
+                      handleListMatches();
+                    }}>
                     <Text style={[text.h1, text.color.black]}>Close</Text>
                   </TouchableOpacity>
                 </View>
