@@ -5,35 +5,45 @@ import {bgColor, chip, text} from '../../styles/app';
 
 function JoinMatchCard({data}) {
   return (
-    <View style={[bgColor.white, card.container]}>
+    <React.Fragment>
       <View>
-        <Text style={[text.title, text.color.black]}>
-          {data.creator_first_name} {data.creator_last_name}
-        </Text>
-        <Text style={[text.label, text.color.black]}>{data.creator_email}</Text>
         <Text style={[text.label, text.color.black]}>
-          {data.creator_mobile}
+          Match ID: {data.doc_uid}
         </Text>
       </View>
-      <View>
-        <Text style={[text.jumbo, text.color.black, text.align.center]}>
-          {data.type}
-        </Text>
-        <View
-          style={[
-            chip.contained,
-            data.status === 'open' ? bgColor.green : bgColor.grey,
-          ]}>
-          <Text style={[text.title, text.color.white]}>
-            {data.status === 'open'
-              ? 'JOIN'
-              : data.status === 'in-game'
-              ? 'IN-GAME'
-              : 'FULL/CLOSED'}
+      <View style={[bgColor.white, card.container]}>
+        <View>
+          <Text style={[text.label, text.color.black]}>{data.date_paid}</Text>
+          <Text style={[text.title, text.color.black]}>
+            {data.creator_first_name} {data.creator_last_name}
+          </Text>
+          <Text style={[text.label, text.color.black]}>
+            {data.creator_email}
+          </Text>
+          <Text style={[text.label, text.color.black]}>
+            {data.creator_mobile}
           </Text>
         </View>
+        <View>
+          <Text style={[text.jumbo, text.color.black, text.align.center]}>
+            {data.type}
+          </Text>
+          <View
+            style={[
+              chip.contained,
+              data.status === 'open' ? bgColor.green : bgColor.grey,
+            ]}>
+            <Text style={[text.title, text.color.white]}>
+              {data.status === 'open'
+                ? 'JOIN'
+                : data.status === 'in-game'
+                ? 'IN-GAME'
+                : 'FULL/CLOSED'}
+            </Text>
+          </View>
+        </View>
       </View>
-    </View>
+    </React.Fragment>
   );
 }
 

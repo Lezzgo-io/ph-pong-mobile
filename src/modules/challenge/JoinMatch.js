@@ -84,11 +84,13 @@ function JoinMatch({navigation}) {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
         <Text style={[text.title, text.color.black]}>Match List</Text>
-        {matches?.map((i, iKey) => (
-          <TouchableOpacity key={iKey} onPress={() => handleJoinMatch(i)}>
-            <JoinMatchCard data={i} />
-          </TouchableOpacity>
-        ))}
+        {matches
+          ?.sort((a, b) => b.date_paid_unix - a.date_paid_unix)
+          .map((i, iKey) => (
+            <TouchableOpacity key={iKey} onPress={() => handleJoinMatch(i)}>
+              <JoinMatchCard data={i} />
+            </TouchableOpacity>
+          ))}
       </ScrollView>
     </SafeAreaView>
   );
